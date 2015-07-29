@@ -36,7 +36,7 @@ NAME = 'sphinxcontrib-disqus'
 NAME_FILE = NAME.split('-', 1)[0]
 PACKAGE = True
 REQUIRES_INSTALL = []
-REQUIRES_TEST = ['pytest-cov', 'robpol86-pytest-ipdb']
+REQUIRES_TEST = ['pytest-cov']
 REQUIRES_ALL = REQUIRES_INSTALL + REQUIRES_TEST
 VERSION_FILE = os.path.join(NAME_FILE, '__init__.py') if PACKAGE else '{0}.py'.format(NAME_FILE)
 
