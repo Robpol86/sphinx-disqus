@@ -35,10 +35,10 @@ KEYWORDS = 'sphinx disqus'
 NAME = 'sphinxcontrib-disqus'
 NAME_FILE = NAME.split('-', 1)[0]
 PACKAGE = True
-REQUIRES_INSTALL = []
+REQUIRES_INSTALL = ['sphinx']
 REQUIRES_TEST = ['pytest-cov']
 REQUIRES_ALL = REQUIRES_INSTALL + REQUIRES_TEST
-VERSION_FILE = os.path.join(NAME_FILE, '__init__.py') if PACKAGE else '{0}.py'.format(NAME_FILE)
+VERSION_FILE = os.path.join(NAME_FILE, 'disqus.py') if PACKAGE else '{0}.py'.format(NAME_FILE)
 
 
 def _safe_read(path, length):
