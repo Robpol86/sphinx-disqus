@@ -11,7 +11,7 @@ import re
 
 from docutils import nodes
 from docutils.parsers.rst import Directive
-from sphinx.application import ExtensionError
+from sphinx.application import ExtensionError, SphinxWarning
 
 __author__ = '@Robpol86'
 __license__ = 'MIT'
@@ -35,7 +35,7 @@ class DisqusNode(nodes.General, nodes.Element):
         """Append opening tags to document body list."""
         html_attrs = {
             'id': 'disqus_thread',
-            'data-disqus-identifier': node.disqus_identifier or spht.page_name_todo_this,  # TODO or in directive.
+            'data-disqus-identifier': node.disqus_identifier,
         }
         spht.body.append(spht.starttag(node, 'div', '', **html_attrs))
 
@@ -53,7 +53,11 @@ class DisqusDirective(Directive):
 
     def run(self):
         """Executed by Sphinx."""
-        return [DisqusNode(self.options['disqus_identifier'])]
+        title_nodes = self.state.document.traverse(nodes.title)
+        if not title_nodes:
+            raise SphinxWarning('no title nodes found in document.')
+        disqus_identifier = self.options['disqus_identifier'] or title_nodes[0].astext()
+        return [DisqusNode(disqus_identifier)]
 
 
 class EventHandlers(object):

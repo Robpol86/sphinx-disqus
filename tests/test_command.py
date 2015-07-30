@@ -6,16 +6,11 @@ import py
 import pytest
 
 BASE_CONFIG = """\
-import os
 import sys
 sys.path.append('{}')
-author = 'Robpol86'
 extensions = ['disqus']
 master_doc = 'index'
 nitpicky = True
-project = 'Robpol86.com'
-release = '1.0'
-version = release
 """
 
 SHORTNAME_PARAMS = [
