@@ -9,7 +9,7 @@ build_script:
   - pip install codecov tox
 
 test_script:
-  - tox -e py27x64 -e py27
+  - tox -e flake8,check,requirements,py27x64,py27
   - tox -e combine py27x64 py27
 
 after_test:
