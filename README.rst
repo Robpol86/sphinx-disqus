@@ -4,7 +4,7 @@ sphinxcontrib-disqus
 
 Embed `Disqus <https://disqus.com/>`_ comments in Sphinx documents/pages.
 
-* Python 2.7, PyPy, PyPy3, 3.3, and 3.4 supported on Linux and OS X.
+* Python 2.7, PyPy, 3.3, and 3.4 supported on Linux and OS X.
 * Python 2.7, 3.3, and 3.4 supported on Windows (both 32 and 64 bit versions of Python).
 
 Tested on Windows XP and Windows 10.
