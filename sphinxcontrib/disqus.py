@@ -7,6 +7,8 @@ https://pypi.python.org/pypi/sphinxcontrib-disqus
 
 from __future__ import print_function
 
+import re
+
 from docutils import nodes
 from docutils.parsers.rst import Directive
 from sphinx.application import ExtensionError
@@ -14,6 +16,7 @@ from sphinx.application import ExtensionError
 __author__ = '@Robpol86'
 __license__ = 'MIT'
 __version__ = '0.0.1'
+RE_SHORTNAME = re.compile('^[a-zA-Z0-9-]{3,50}$')
 
 
 class DisqusNode(nodes.General, nodes.Element):
@@ -67,6 +70,8 @@ class EventHandlers(object):
         """
         if not app.config.disqus_shortname:
             raise ExtensionError('disqus_shortname config value must be set for the disqus extension to work.')
+        if not RE_SHORTNAME.match(app.config.disqus_shortname):
+            raise ExtensionError('disqus_shortname config value must be 3-50 letters, numbers, and hyphens only.')
         javascript = """\
             var disqus_shortname = '{shortname}';
             (function() {{
@@ -74,7 +79,7 @@ class EventHandlers(object):
                 dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
                 (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
             }})();
-        """.format(app.config.disqus_shortname)
+        """.format(shortname=app.config.disqus_shortname)
         app.add_javascript(javascript)
 
 
