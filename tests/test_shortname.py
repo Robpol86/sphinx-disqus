@@ -10,7 +10,7 @@ from sphinx import application, errors
 BASE_CONFIG = """\
 import sys
 sys.path.append('{}')
-extensions = ['disqus']
+extensions = ['sphinxcontrib.disqus']
 master_doc = 'index'
 nitpicky = True
 """
@@ -26,7 +26,7 @@ SHORTNAME_PARAMS = [
 @pytest.mark.parametrize('tail,expected_error', SHORTNAME_PARAMS)
 def test(monkeypatch, tmpdir, tail, expected_error):
     """Test valid and invalid values."""
-    tmpdir.join('conf.py').write(BASE_CONFIG.format(py.path.local(__file__).join('..', '..', 'sphinxcontrib')))
+    tmpdir.join('conf.py').write(BASE_CONFIG.format(py.path.local(__file__).join('..', '..')))
     tmpdir.join('conf.py').write(tail, mode='a')
     tmpdir.join('index.rst').write('====\nMain\n====\n\n.. toctree::\n    :maxdepth: 2\n.. disqus::')
     monkeypatch.setattr(directives, '_directives', getattr(directives, '_directives').copy())
