@@ -14,10 +14,10 @@ nitpicky = True
 """
 
 SHORTNAME_PARAMS = [
+    ("disqus_shortname = 'good'", ''),
     ('', 'disqus_shortname config value must be set for the disqus extension to work.'),
     ("disqus_shortname = ''", 'disqus_shortname config value must be set for the disqus extension to work.'),
     ("disqus_shortname = 'B@D'", 'disqus_shortname config value must be 3-50 letters, numbers, and hyphens only.'),
-    ("disqus_shortname = 'good'", ''),
 ]
 
 

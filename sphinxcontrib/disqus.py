@@ -7,6 +7,7 @@ https://pypi.python.org/pypi/sphinxcontrib-disqus
 
 from __future__ import print_function
 
+import os
 import re
 
 from docutils import nodes
@@ -17,17 +18,20 @@ __author__ = '@Robpol86'
 __license__ = 'MIT'
 __version__ = '0.0.1'
 RE_SHORTNAME = re.compile('^[a-zA-Z0-9-]{3,50}$')
+STATIC_DIR = os.path.join(os.path.dirname(__file__), '_static')
 
 
 class DisqusNode(nodes.General, nodes.Element):
     """Disqus <div /> node for Sphinx/docutils."""
 
-    def __init__(self, disqus_identifier):
+    def __init__(self, disqus_shortname, disqus_identifier):
         """Store directive options during instantiation.
 
+        :param str disqus_shortname: Required Disqus forum name identifying the website.
         :param str disqus_identifier: Unique identifier for each page where Disqus is present.
         """
         super(DisqusNode, self).__init__()
+        self.disqus_shortname = disqus_shortname
         self.disqus_identifier = disqus_identifier
 
     @staticmethod
@@ -35,6 +39,7 @@ class DisqusNode(nodes.General, nodes.Element):
         """Append opening tags to document body list."""
         html_attrs = {
             'ids': ['disqus_thread'],
+            'data-disqus-shortname': node.disqus_shortname,
             'data-disqus-identifier': node.disqus_identifier,
         }
         spht.body.append(spht.starttag(node, 'div', '', **html_attrs))
@@ -53,11 +58,16 @@ class DisqusDirective(Directive):
 
     def run(self):
         """Executed by Sphinx."""
+        if not self.state.document.settings.env.config.disqus_shortname:
+            raise ExtensionError('disqus_shortname config value must be set for the disqus extension to work.')
+        if not RE_SHORTNAME.match(self.state.document.settings.env.config.disqus_shortname):
+            raise ExtensionError('disqus_shortname config value must be 3-50 letters, numbers, and hyphens only.')
+        disqus_shortname = self.state.document.settings.env.config.disqus_shortname
         title_nodes = self.state.document.traverse(nodes.title)
         if not title_nodes:
             raise SphinxWarning('no title nodes found in document.')
         disqus_identifier = self.options.get('disqus_identifier') or title_nodes[0].astext()
-        return [DisqusNode(disqus_identifier)]
+        return [DisqusNode(disqus_shortname, disqus_identifier)]
 
 
 class EventHandlers(object):
@@ -72,19 +82,8 @@ class EventHandlers(object):
 
         :param app: Sphinx application object.
         """
-        if not app.config.disqus_shortname:
-            raise ExtensionError('disqus_shortname config value must be set for the disqus extension to work.')
-        if not RE_SHORTNAME.match(app.config.disqus_shortname):
-            raise ExtensionError('disqus_shortname config value must be 3-50 letters, numbers, and hyphens only.')
-        javascript = """\
-            var disqus_shortname = '{shortname}';
-            (function() {{
-                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-            }})();
-        """.format(shortname=app.config.disqus_shortname)
-        app.add_javascript(javascript)
+        app.config.html_static_path.append(os.path.relpath(STATIC_DIR, app.confdir))
+        app.add_javascript('disqus.js')
 
 
 def setup(app):
