@@ -56,17 +56,44 @@ class DisqusDirective(Directive):
     optional_arguments = 1
     option_spec = dict(disqus_identifier=str)
 
-    def run(self):
-        """Executed by Sphinx."""
-        if not self.state.document.settings.env.config.disqus_shortname:
-            raise ExtensionError('disqus_shortname config value must be set for the disqus extension to work.')
-        if not RE_SHORTNAME.match(self.state.document.settings.env.config.disqus_shortname):
-            raise ExtensionError('disqus_shortname config value must be 3-50 letters, numbers, and hyphens only.')
+    def get_shortname(self):
+        """Validate and returns disqus_shortname config value.
+
+        :returns: disqus_shortname config value.
+        :rtype: str
+        """
         disqus_shortname = self.state.document.settings.env.config.disqus_shortname
+        if not disqus_shortname:
+            raise ExtensionError('disqus_shortname config value must be set for the disqus extension to work.')
+        if not RE_SHORTNAME.match(disqus_shortname):
+            raise ExtensionError('disqus_shortname config value must be 3-50 letters, numbers, and hyphens only.')
+        return disqus_shortname
+
+    def get_identifier(self):
+        """Validate and returns disqus_identifier option value.
+
+        :returns: disqus_identifier config value.
+        :rtype: str
+        """
+        if 'disqus_identifier' in self.options:
+            disqus_identifier = self.options['disqus_identifier']
+            if not disqus_identifier:
+                raise SphinxWarning('disqus_identifier specified in document but is a blank string.')
+            return disqus_identifier
+
         title_nodes = self.state.document.traverse(nodes.title)
         if not title_nodes:
-            raise SphinxWarning('no title nodes found in document.')
-        disqus_identifier = self.options.get('disqus_identifier') or title_nodes[0].astext()
+            raise SphinxWarning('no title nodes found in document, cannot derive disqus_identifier config value.')
+        return title_nodes[0].astext()
+
+    def run(self):
+        """Executed by Sphinx.
+
+        :returns: Single DisqusNode instance with config values passed as arguments.
+        :rtype: list
+        """
+        disqus_shortname = self.get_shortname()
+        disqus_identifier = self.get_identifier()
         return [DisqusNode(disqus_shortname, disqus_identifier)]
 
 

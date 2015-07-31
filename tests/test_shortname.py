@@ -1,4 +1,4 @@
-"""Integration tests."""
+"""Test disqus_shortname config value scenarios."""
 
 import re
 
@@ -24,8 +24,8 @@ SHORTNAME_PARAMS = [
 
 
 @pytest.mark.parametrize('tail,expected_error', SHORTNAME_PARAMS)
-def test_shortname(monkeypatch, tmpdir, tail, expected_error):
-    """Test working and errors for disqus_shortname configuration."""
+def test(monkeypatch, tmpdir, tail, expected_error):
+    """Test valid and invalid values."""
     tmpdir.join('conf.py').write(BASE_CONFIG.format(py.path.local(__file__).join('..', '..', 'sphinxcontrib')))
     tmpdir.join('conf.py').write(tail, mode='a')
     tmpdir.join('index.rst').write('====\nMain\n====\n\n.. toctree::\n    :maxdepth: 2\n.. disqus::')
