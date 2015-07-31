@@ -15,7 +15,7 @@ master_doc = 'index'
 nitpicky = True
 """
 
-SHORTNAME_PARAMS = [
+PARAMS = [
     ("disqus_shortname = 'good'", ''),
     ('', 'disqus_shortname config value must be set for the disqus extension to work.'),
     ("disqus_shortname = ''", 'disqus_shortname config value must be set for the disqus extension to work.'),
@@ -23,7 +23,7 @@ SHORTNAME_PARAMS = [
 ]
 
 
-@pytest.mark.parametrize('tail,expected_error', SHORTNAME_PARAMS)
+@pytest.mark.parametrize('tail,expected_error', PARAMS)
 def test(monkeypatch, tmpdir, tail, expected_error):
     """Test valid and invalid values."""
     tmpdir.join('conf.py').write(BASE_CONFIG.format(py.path.local(__file__).join('..', '..')))

@@ -76,10 +76,7 @@ class DisqusDirective(Directive):
         :rtype: str
         """
         if 'disqus_identifier' in self.options:
-            disqus_identifier = self.options['disqus_identifier']
-            if not disqus_identifier:
-                raise SphinxWarning('disqus_identifier specified in document but is a blank string.')
-            return disqus_identifier
+            return self.options['disqus_identifier']
 
         title_nodes = self.state.document.traverse(nodes.title)
         if not title_nodes:
