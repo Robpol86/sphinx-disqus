@@ -26,7 +26,7 @@ def test_shortname(tmpdir, tail, expected_error):
     """Test working and errors for disqus_shortname configuration."""
     tmpdir.join('conf.py').write(BASE_CONFIG.format(py.path.local(__file__).join('..', '..', 'sphinxcontrib')))
     tmpdir.join('conf.py').write(tail, mode='a')
-    tmpdir.join('index.rst').write('.. toctree::\n    :maxdepth: 2')
+    tmpdir.join('index.rst').write('====\nMain\n====\n\n.. toctree::\n    :maxdepth: 2\n.. disqus::')
 
     command = ['sphinx-build', '-W', '-b', 'html', '.', '_build/html']
     if expected_error:

@@ -34,7 +34,7 @@ class DisqusNode(nodes.General, nodes.Element):
     def visit(spht, node):
         """Append opening tags to document body list."""
         html_attrs = {
-            'id': 'disqus_thread',
+            'ids': ['disqus_thread'],
             'data-disqus-identifier': node.disqus_identifier,
         }
         spht.body.append(spht.starttag(node, 'div', '', **html_attrs))
@@ -56,7 +56,7 @@ class DisqusDirective(Directive):
         title_nodes = self.state.document.traverse(nodes.title)
         if not title_nodes:
             raise SphinxWarning('no title nodes found in document.')
-        disqus_identifier = self.options['disqus_identifier'] or title_nodes[0].astext()
+        disqus_identifier = self.options.get('disqus_identifier') or title_nodes[0].astext()
         return [DisqusNode(disqus_identifier)]
 
 
