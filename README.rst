@@ -36,12 +36,8 @@ Install:
 
     pip install sphinxcontrib-disqus
 
-Use:
-
-.. code:: python
-
-    # Add to `extensions` in conf.py.
-    extensions = ['sphinxcontrib.disqus', ...]
+For more information on how to use the extension please visit the documentation at:
+https://sphinxcontrib-disqus.readthedocs.org
 
 Changelog
 =========

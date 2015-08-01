@@ -1,6 +1,6 @@
 """Sphinx extension that embeds Disqus comments in documents.
 
-https://readthedocs.org/projects/sphinxcontrib-disqus/
+https://sphinxcontrib-disqus.readthedocs.org
 https://github.com/Robpol86/sphinxcontrib-disqus
 https://pypi.python.org/pypi/sphinxcontrib-disqus
 """
