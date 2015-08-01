@@ -11,7 +11,7 @@ _PACKAGES = lambda: [os.path.join(r, s) for r, d, _ in os.walk(NAME_FILE) for s 
 _VERSION_RE = re.compile(r"^__(version|author|license)__ = '([\w\.@]+)'$", re.MULTILINE)
 
 CLASSIFIERS = [
-    'Development Status :: 1 - Planning',
+    'Development Status :: 5 - Production/Stable',
     'Environment :: MacOS X',
     'Environment :: Plugins',
     'Environment :: Win32 (MS Windows)',
