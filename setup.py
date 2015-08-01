@@ -59,6 +59,7 @@ ALL_DATA = dict(
     keywords=KEYWORDS,
     long_description=_safe_read('README.rst', 15000),
     name=NAME,
+    package_data={'': ['_static/disqus.js']},
     requires=REQUIRES_INSTALL,
     tests_require=REQUIRES_TEST,
     url='https://github.com/Robpol86/{0}'.format(NAME),

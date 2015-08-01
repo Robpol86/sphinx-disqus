@@ -38,13 +38,6 @@ Contents
 
     usage
 
-Indices
-=======
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
-
 Comments
 ========
 
