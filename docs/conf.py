@@ -1,3 +1,5 @@
+"""Sphinx configuration file."""
+
 import os
 import sys
 import time
