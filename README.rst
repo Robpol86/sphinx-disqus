@@ -36,6 +36,9 @@ Install:
 
     pip install sphinxcontrib-disqus
 
+Usage and Documentation
+=======================
+
 For more information on how to use the extension please read the documentation at:
 https://sphinxcontrib-disqus.readthedocs.org
 
