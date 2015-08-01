@@ -10,7 +10,7 @@ import setuptools
 _PACKAGES = lambda: [os.path.join(r, s) for r, d, _ in os.walk(NAME_FILE) for s in d if s != '__pycache__']
 _VERSION_RE = re.compile(r"^__(version|author|license)__ = '([\w\.@]+)'$", re.MULTILINE)
 
-CLASSIFIERS = (
+CLASSIFIERS = [
     'Development Status :: 1 - Planning',
     'Environment :: MacOS X',
     'Environment :: Plugins',
@@ -28,7 +28,7 @@ CLASSIFIERS = (
     'Programming Language :: Python :: Implementation :: PyPy',
     'Topic :: Documentation :: Sphinx',
     'Topic :: Software Development :: Documentation',
-)
+]
 DESCRIPTION = 'Sphinx extension that embeds Disqus comments in documents.'
 HERE = os.path.abspath(os.path.dirname(__file__))
 KEYWORDS = 'sphinx disqus'
