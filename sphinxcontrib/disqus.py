@@ -12,13 +12,19 @@ import re
 
 from docutils import nodes
 from docutils.parsers.rst import Directive
-from sphinx.application import ExtensionError, SphinxWarning
+from sphinx.application import ExtensionError, SphinxError
 
 __author__ = '@Robpol86'
 __license__ = 'MIT'
 __version__ = '0.0.1'
 RE_SHORTNAME = re.compile('^[a-zA-Z0-9-]{3,50}$')
 STATIC_DIR = os.path.join(os.path.dirname(__file__), '_static')
+
+
+class DisqusError(SphinxError):
+    """Non-configuration error. Raised when directive has bad options."""
+
+    category = 'Disqus option error'
 
 
 class DisqusNode(nodes.General, nodes.Element):
@@ -80,7 +86,7 @@ class DisqusDirective(Directive):
 
         title_nodes = self.state.document.traverse(nodes.title)
         if not title_nodes:
-            raise SphinxWarning('no title nodes found in document, cannot derive disqus_identifier config value.')
+            raise DisqusError('No title nodes found in document, cannot derive disqus_identifier config value.')
         return title_nodes[0].astext()
 
     def run(self):

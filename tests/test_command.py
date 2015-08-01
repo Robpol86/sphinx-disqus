@@ -36,3 +36,25 @@ def test_shortname(tmpdir, tail, expected_error):
         assert expected_error in error_message
     else:
         check_output(command, cwd=str(tmpdir))
+
+
+@pytest.mark.parametrize('rst_title', ['====\nMain\n====\n\n', ''])
+def test_identifier(tmpdir, rst_title):
+    """Test working and errors for disqus_identifier configuration."""
+    tmpdir.join('conf.py').write(BASE_CONFIG.format(py.path.local(__file__).join('..', '..')))
+    tmpdir.join('conf.py').write("disqus_shortname = 'good'", mode='a')
+    tmpdir.join('index.rst').write('{}.. toctree::\n    :maxdepth: 2\n.. disqus::'.format(rst_title))
+
+    command = ['sphinx-build', '-b', 'html', '.', '_build/html']
+    if not rst_title:
+        with pytest.raises(CalledProcessError) as exc:
+            check_output(command, cwd=str(tmpdir), stderr=STDOUT)
+        error_message = exc.value.output.decode('utf-8')
+        expected_error = 'No title nodes found in document, cannot derive disqus_identifier config value.'
+        assert expected_error in error_message
+    else:
+        stdout = check_output(command, cwd=str(tmpdir), stderr=STDOUT).decode('utf-8')
+        html_body = tmpdir.join('_build', 'html', 'index.html').read()
+        assert 'warning' not in stdout
+        assert 'id="disqus_thread"' in html_body
+        assert 'data-disqus-identifier="Main"' in html_body
