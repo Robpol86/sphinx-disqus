@@ -11,8 +11,8 @@ sys.path.append(os.path.abspath('..'))
 
 # General configuration.
 author = 'Robpol86'
-exclude_patterns = ['_build']
 copyright = '{}, {}'.format(time.strftime('%Y'), author)
+exclude_patterns = ['_build']
 extensions = ['sphinxcontrib.disqus']
 master_doc = 'index'
 nitpicky = True
