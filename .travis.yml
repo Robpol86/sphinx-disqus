@@ -1,12 +1,13 @@
+# Configure.
 language: python
+python: 3.4
+sudo: false
 
-install:
-  - pip install codecov tox
-
-script:
-  - tox
-  - tox -e combine py34 py33 pypy py27
-
+# Run.
+install: pip install appveyor-artifacts coveralls tox
+script: tox -e lint,py34,py33,pypy,py27
 after_success:
-  - mv tests/.coverage .
-  - codecov || true
+  - mv .coverage .coverage.travis
+  - appveyor-artifacts -mi download
+  - coverage combine
+  - coveralls

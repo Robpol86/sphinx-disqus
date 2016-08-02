@@ -7,9 +7,6 @@ import re
 
 import setuptools
 
-_PACKAGES = lambda: [os.path.join(r, s) for r, d, _ in os.walk(NAME_FILE) for s in d if s != '__pycache__']
-_VERSION_RE = re.compile(r"^__(version|author|license)__ = '([\w\.@]+)'$", re.MULTILINE)
-
 CLASSIFIERS = [
     'Development Status :: 5 - Production/Stable',
     'Environment :: MacOS X',
@@ -39,6 +36,9 @@ REQUIRES_INSTALL = ['sphinx']
 REQUIRES_TEST = ['pytest-cov']
 REQUIRES_ALL = REQUIRES_INSTALL + REQUIRES_TEST
 VERSION_FILE = os.path.join(NAME_FILE, 'disqus.py') if PACKAGE else '{0}.py'.format(NAME_FILE)
+
+_PACKAGES = lambda: [os.path.join(r, s) for r, d, _ in os.walk(NAME_FILE) for s in d if s != '__pycache__']
+_VERSION_RE = re.compile(r"^__(version|author|license)__ = '([\w\.@]+)'$", re.MULTILINE)
 
 
 def _safe_read(path, length):
