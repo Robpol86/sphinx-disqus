@@ -1,6 +1,6 @@
-=======================
-Disqus Sphinx Extension
-=======================
+==============================
+sphinxcontrib-disqus |version|
+==============================
 
 Add `Disqus <https://disqus.com>`_ comments to your Sphinx documents.
 
@@ -10,7 +10,7 @@ needed by Disqus. A working example is shown at the bottom of this page.
 Project Links
 =============
 
-* Documentation: https://sphinxcontrib-disqus.readthedocs.org
+* Documentation: https://robpol86.github.io/sphinxcontrib-disqus
 * Source code: https://github.com/Robpol86/sphinxcontrib-disqus
 * PyPI homepage: https://pypi.python.org/pypi/sphinxcontrib-disqus
 
@@ -30,13 +30,18 @@ server. You can fire one up easily running these commands (tested on OS X) after
 2. ``python -m SimpleHTTPServer 8080``
 3. Browse to http://localhost:8080/
 
-Contents
-========
+.. toctree::
+    :maxdepth: 3
+    :caption: General
+
+    install
+    usage
 
 .. toctree::
-    :maxdepth: 2
+    :maxdepth: 1
+    :caption: Appendix
 
-    usage
+    changelog
 
 Comments
 ========

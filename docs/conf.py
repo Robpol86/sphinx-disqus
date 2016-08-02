@@ -1,31 +1,38 @@
 """Sphinx configuration file."""
 
 import os
-import sys
 import time
+from subprocess import check_output
 
-import sphinx_rtd_theme
-
-sys.path.append(os.path.abspath('..'))
+SETUP = os.path.join(os.path.dirname(__file__), '..', 'setup.py')
 
 
 # General configuration.
-author = 'Robpol86'
+author = check_output([SETUP, '--author']).strip().decode('ascii')
 copyright = '{}, {}'.format(time.strftime('%Y'), author)
-exclude_patterns = ['_build']
-extensions = ['sphinxcontrib.disqus']
 master_doc = 'index'
-nitpicky = True
-project = 'sphinxcontrib-disqus'
-release = '1.0'
+project = check_output([SETUP, '--name']).strip().decode('ascii')
+pygments_style = 'friendly'
+release = version = check_output([SETUP, '--version']).strip().decode('ascii')
 templates_path = ['_templates']
-version = release
+extensions = list()
 
 
 # Options for HTML output.
+html_context = dict(
+    conf_py_path='/docs/',
+    display_github=True,
+    github_repo=os.environ.get('TRAVIS_REPO_SLUG', '/' + project).split('/', 1)[1],
+    github_user=os.environ.get('TRAVIS_REPO_SLUG', 'robpol86/').split('/', 1)[0],
+    github_version=os.environ.get('TRAVIS_BRANCH', 'master'),
+    source_suffix='.rst',
+)
+html_copy_source = False
+html_favicon = 'favicon.ico'
 html_theme = 'sphinx_rtd_theme'
-html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
 html_title = project
 
-# Options for extensions.
+
+# disqus
+extensions.append('sphinxcontrib.disqus')
 disqus_shortname = project
