@@ -1,11 +1,11 @@
 # Configure.
 language: python
-python: 3.4
+python: 3.5
 sudo: false
 
 # Run.
 install: pip install appveyor-artifacts coveralls tox
-script: tox -e lint,py34,py33,pypy,py27,docs
+script: tox -e lint,py35,py34,py33,pypy,py27,docs
 after_success:
   - mv .coverage .coverage.travis
   - appveyor-artifacts -mi download
@@ -19,3 +19,22 @@ after_success:
   - git remote set-url origin "git@github.com:$TRAVIS_REPO_SLUG"
   - export ${!TRAVIS*}  # For commit messages.
   - tox -e docsV
+
+# Deploy.
+deploy:
+  provider: pypi
+  user: Robpol86
+  password:
+    secure:
+      "uac6NZft9fv100bb2gp9Gn3Kvg3/KJOAYZzyRnYzupEr6vzmCANovV5cSQ7ij/GeYlOOy4n\
+      SlQhBAvJyf2V4BqZdSxwH/WZCWUN505SRUstSOSVE1B1hxYHQwAtrLcKyHcjFUOuAYY1/xqM\
+      n6agbSwJXVq0dDLl30drkO2e97cLx8mUI1/S2TJmy/n56CT6IM1jUCskKnxcoA0aTCCuAZdo\
+      t0JkZzLnP3WLAZRtIfOCRYtejY5OQxpx2U7+WGaHw/NY8b36bTvpG0JJIVVDExc8up/ofmUk\
+      NPF0zlImvpItUjhrcGC/Rj76potwkIUTYZCROWursMzRJGS9rYumBu/YoYsqr3Jd4TnHMAAa\
+      1/4zOLEIeTuHcVjBimbFkEUtBL/s/5AlvFvu18LO9LxSkL004tWx/f2L1EFetdSPs8EYLPTD\
+      OFsC7+AA0tn9nSLoFBF0ziP+ForRORg9XPljsBm3JapaU2qJYvsN2InjZqztlwvhdDld7nyF\
+      3mSeYC3xVSACdlnHz+MpYp28iBHvmFeQRIX6b4mtPBc320pyfh/NqI+BAnVFcMpOQtkM1ykk\
+      EVQ7hcRrnvi/142gCdztH8T3/ss4aLwdfofAPwePrB5bn467/YCFO9sI65LwjAbRWzBzfpMm\
+      Q5DAOUUVAyAWnCBux+L1d1MH9VkmJ/Ms4AA8="
+  on:
+    tags: true

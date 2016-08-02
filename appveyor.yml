@@ -3,6 +3,6 @@ artifacts:
   - path: .coverage
 
 # Run.
-init: set PATH=C:\Python34-x64;C:\Python34-x64\Scripts;%PATH%
+init: set PATH=C:\Python35-x64;C:\Python35-x64\Scripts;%PATH%
 build_script: pip install tox
-test_script: tox -e lint,py34,py33,py27,py34x64,py33x64,py27x64
+test_script: tox -e lint,py35,py34,py33,py27,py35x64,py34x64,py33x64,py27x64
