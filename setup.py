@@ -105,5 +105,5 @@ setup(
     packages=['sphinxcontrib'],
     url='https://github.com/Robpol86/' + NAME,
     version=VERSION,
-    zip_safe=True,
+    zip_safe=False,
 )

@@ -47,6 +47,9 @@ Unreleased
 Added
     * Python 3.5 support (Linux/OS X and Windows).
 
+Fixed
+    * easy_install: https://bitbucket.org/birkenfeld/sphinx-contrib/issues/155/
+
 1.0.0 - 2015-07-31
 ------------------
 
