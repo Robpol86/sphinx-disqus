@@ -100,20 +100,17 @@ class DisqusDirective(Directive):
         return [DisqusNode(disqus_shortname, disqus_identifier)]
 
 
-class EventHandlers(object):
-    """Hold Sphinx event handlers as static methods."""
+def event_builder_inited(app):
+    """Update the Sphinx builder.
 
-    @staticmethod
-    def insert_javascript(app):
-        """Insert Disqus read-only javascript into the document body during the builder-inited event.
+    http://sphinx-doc.org/extdev/appapi.html#event-builder-inited
+    From: https://github.com/sphinx-doc/sphinx/blob/master/sphinx/ext/mathjax.py
 
-        http://sphinx-doc.org/extdev/appapi.html#event-builder-inited
-        From: https://github.com/sphinx-doc/sphinx/blob/master/sphinx/ext/mathjax.py
-
-        :param app: Sphinx application object.
-        """
-        app.config.html_static_path.append(os.path.relpath(STATIC_DIR, app.confdir))
-        app.add_javascript('disqus.js')
+    :param app: Sphinx application object.
+    """
+    # Insert Disqus read-only javascript into the document body during the builder-inited event.
+    app.config.html_static_path.append(os.path.relpath(STATIC_DIR, app.confdir))
+    app.add_javascript('disqus.js')
 
 
 def setup(app):
@@ -127,5 +124,5 @@ def setup(app):
     app.add_config_value('disqus_shortname', None, True)
     app.add_node(DisqusNode, html=(DisqusNode.visit, DisqusNode.depart))
     app.add_directive('disqus', DisqusDirective)
-    app.connect('builder-inited', EventHandlers.insert_javascript)
+    app.connect('builder-inited', event_builder_inited)
     return dict(version=__version__)

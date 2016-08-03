@@ -49,6 +49,7 @@ Added
 
 Fixed
     * easy_install: https://bitbucket.org/birkenfeld/sphinx-contrib/issues/155/
+    * https://github.com/Robpol86/sphinxcontrib-disqus/issues/2
 
 1.0.0 - 2015-07-31
 ------------------
