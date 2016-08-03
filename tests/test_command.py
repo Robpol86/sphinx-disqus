@@ -23,7 +23,12 @@ SHORTNAME_PARAMS = [
 
 @pytest.mark.parametrize('tail,expected_error', SHORTNAME_PARAMS)
 def test_shortname(tmpdir, tail, expected_error):
-    """Test working and errors for disqus_shortname configuration."""
+    """Test working and errors for disqus_shortname configuration.
+
+    :param tmpdir: pytest fixture.
+    :param str tail: Append to conf.py.
+    :param str expected_error: Expected error message.
+    """
     tmpdir.join('conf.py').write(BASE_CONFIG.format(py.path.local(__file__).join('..', '..')))
     tmpdir.join('conf.py').write(tail, mode='a')
     tmpdir.join('index.rst').write('====\nMain\n====\n\n.. toctree::\n    :maxdepth: 2\n.. disqus::')
@@ -34,13 +39,23 @@ def test_shortname(tmpdir, tail, expected_error):
             check_output(command, cwd=str(tmpdir), stderr=STDOUT)
         error_message = exc.value.output.decode('utf-8')
         assert expected_error in error_message
-    else:
-        check_output(command, cwd=str(tmpdir))
+        return
+
+    stdout = check_output(command, cwd=str(tmpdir), stderr=STDOUT).decode('utf-8')
+    assert 'warning' not in stdout
+    body_index = tmpdir.join('_build', 'html', 'index.html').read()
+    assert 'id="disqus_thread"' in body_index
+    assert 'data-disqus-identifier="Main"' in body_index
+    assert 'disqus.js' in body_index
 
 
 @pytest.mark.parametrize('rst_title', ['====\nMain\n====\n\n', ''])
 def test_identifier(tmpdir, rst_title):
-    """Test working and errors for disqus_identifier configuration."""
+    """Test working and errors for disqus_identifier configuration.
+
+    :param tmpdir: pytest fixture.
+    :param str rst_title: Title of index.rst.
+    """
     tmpdir.join('conf.py').write(BASE_CONFIG.format(py.path.local(__file__).join('..', '..')))
     tmpdir.join('conf.py').write("disqus_shortname = 'good'", mode='a')
     tmpdir.join('index.rst').write('{}.. toctree::\n    :maxdepth: 2\n.. disqus::'.format(rst_title))
@@ -52,9 +67,11 @@ def test_identifier(tmpdir, rst_title):
         error_message = exc.value.output.decode('utf-8')
         expected_error = 'No title nodes found in document, cannot derive disqus_identifier config value.'
         assert expected_error in error_message
-    else:
-        stdout = check_output(command, cwd=str(tmpdir), stderr=STDOUT).decode('utf-8')
-        html_body = tmpdir.join('_build', 'html', 'index.html').read()
-        assert 'warning' not in stdout
-        assert 'id="disqus_thread"' in html_body
-        assert 'data-disqus-identifier="Main"' in html_body
+        return
+
+    stdout = check_output(command, cwd=str(tmpdir), stderr=STDOUT).decode('utf-8')
+    assert 'warning' not in stdout
+    body_index = tmpdir.join('_build', 'html', 'index.html').read()
+    assert 'id="disqus_thread"' in body_index
+    assert 'data-disqus-identifier="Main"' in body_index
+    assert 'disqus.js' in body_index

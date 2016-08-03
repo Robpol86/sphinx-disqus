@@ -59,7 +59,6 @@ class DisqusNode(nodes.General, nodes.Element):
 class DisqusDirective(Directive):
     """Disqus ".. disqus::" rst directive."""
 
-    optional_arguments = 1
     option_spec = dict(disqus_identifier=str)
 
     def get_shortname(self):
@@ -103,10 +102,7 @@ class DisqusDirective(Directive):
 def event_builder_inited(app):
     """Update the Sphinx builder.
 
-    http://sphinx-doc.org/extdev/appapi.html#event-builder-inited
-    From: https://github.com/sphinx-doc/sphinx/blob/master/sphinx/ext/mathjax.py
-
-    :param app: Sphinx application object.
+    :param sphinx.application.Sphinx app: Sphinx application object.
     """
     # Insert Disqus read-only javascript into the document body during the builder-inited event.
     app.config.html_static_path.append(os.path.relpath(STATIC_DIR, app.confdir))
