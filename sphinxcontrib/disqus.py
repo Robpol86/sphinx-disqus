@@ -99,14 +99,21 @@ class DisqusDirective(Directive):
         return [DisqusNode(disqus_shortname, disqus_identifier)]
 
 
-def event_builder_inited(app):
-    """Update the Sphinx builder.
+def event_html_page_context(app, pagename, templatename, context, doctree):
+    """Called when the HTML builder has created a context dictionary to render a template with.
+
+    Conditionally adding disqus.js to <head /> if the directive is used in a page.
 
     :param sphinx.application.Sphinx app: Sphinx application object.
+    :param str pagename: Name of the page being rendered (without .html or any file extension).
+    :param str templatename: Page name with .html.
+    :param dict context: Jinja2 HTML context.
+    :param docutils.nodes.document doctree: Tree of docutils nodes.
     """
-    # Insert Disqus read-only javascript into the document body during the builder-inited event.
-    app.config.html_static_path.append(os.path.relpath(STATIC_DIR, app.confdir))
-    app.add_javascript('disqus.js')
+    assert app or pagename or templatename  # Unused, for linting.
+    if 'script_files' in context and doctree and any(hasattr(n, 'disqus_shortname') for n in doctree.traverse()):
+        # Clone list to prevent leaking into other pages and add disqus.js to this page.
+        context['script_files'] = context['script_files'][:] + ['_static/disqus.js']
 
 
 def setup(app):
@@ -118,7 +125,8 @@ def setup(app):
     :rtype: dict
     """
     app.add_config_value('disqus_shortname', None, True)
-    app.add_node(DisqusNode, html=(DisqusNode.visit, DisqusNode.depart))
     app.add_directive('disqus', DisqusDirective)
-    app.connect('builder-inited', event_builder_inited)
+    app.add_node(DisqusNode, html=(DisqusNode.visit, DisqusNode.depart))
+    app.config.html_static_path.append(os.path.relpath(STATIC_DIR, app.confdir))
+    app.connect('html-page-context', event_html_page_context)
     return dict(version=__version__)

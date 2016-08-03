@@ -31,7 +31,8 @@ def test_shortname(tmpdir, tail, expected_error):
     """
     tmpdir.join('conf.py').write(BASE_CONFIG.format(py.path.local(__file__).join('..', '..')))
     tmpdir.join('conf.py').write(tail, mode='a')
-    tmpdir.join('index.rst').write('====\nMain\n====\n\n.. toctree::\n    :maxdepth: 2\n.. disqus::')
+    tmpdir.join('index.rst').write('====\nMain\n====\n\n.. toctree::\n    sub\n.. disqus::')
+    tmpdir.join('sub.rst').write('.. _sub:\n\n===\nSub\n===\n\nTest not loading javascript.')
 
     command = ['sphinx-build', '-W', '-b', 'html', '.', '_build/html']
     if expected_error:
@@ -43,10 +44,15 @@ def test_shortname(tmpdir, tail, expected_error):
 
     stdout = check_output(command, cwd=str(tmpdir), stderr=STDOUT).decode('utf-8')
     assert 'warning' not in stdout
+    assert tmpdir.join('_build', 'html', '_static', 'disqus.js').check(file=True)
     body_index = tmpdir.join('_build', 'html', 'index.html').read()
     assert 'id="disqus_thread"' in body_index
     assert 'data-disqus-identifier="Main"' in body_index
     assert 'disqus.js' in body_index
+    body_sub = tmpdir.join('_build', 'html', 'sub.html').read()
+    assert 'id="disqus_thread"' not in body_sub
+    assert 'data-disqus-identifier="Main"' not in body_sub
+    assert 'disqus.js' not in body_sub
 
 
 @pytest.mark.parametrize('rst_title', ['====\nMain\n====\n\n', ''])
@@ -58,7 +64,8 @@ def test_identifier(tmpdir, rst_title):
     """
     tmpdir.join('conf.py').write(BASE_CONFIG.format(py.path.local(__file__).join('..', '..')))
     tmpdir.join('conf.py').write("disqus_shortname = 'good'", mode='a')
-    tmpdir.join('index.rst').write('{}.. toctree::\n    :maxdepth: 2\n.. disqus::'.format(rst_title))
+    tmpdir.join('index.rst').write('{}.. toctree::\n    sub\n.. disqus::'.format(rst_title))
+    tmpdir.join('sub.rst').write('.. _sub:\n\n===\nSub\n===\n\nTest not loading javascript.')
 
     command = ['sphinx-build', '-b', 'html', '.', '_build/html']
     if not rst_title:
@@ -71,7 +78,12 @@ def test_identifier(tmpdir, rst_title):
 
     stdout = check_output(command, cwd=str(tmpdir), stderr=STDOUT).decode('utf-8')
     assert 'warning' not in stdout
+    assert tmpdir.join('_build', 'html', '_static', 'disqus.js').check(file=True)
     body_index = tmpdir.join('_build', 'html', 'index.html').read()
     assert 'id="disqus_thread"' in body_index
     assert 'data-disqus-identifier="Main"' in body_index
     assert 'disqus.js' in body_index
+    body_sub = tmpdir.join('_build', 'html', 'sub.html').read()
+    assert 'id="disqus_thread"' not in body_sub
+    assert 'data-disqus-identifier="Main"' not in body_sub
+    assert 'disqus.js' not in body_sub
