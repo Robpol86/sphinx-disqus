@@ -13,7 +13,7 @@ IMPORT = 'sphinxcontrib.disqus'
 INSTALL_REQUIRES = ['sphinx']
 LICENSE = 'MIT'
 NAME = 'sphinxcontrib-disqus'
-VERSION = '1.0.0'
+VERSION = '1.1.0'
 
 
 def readme(path='README.rst'):

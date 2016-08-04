@@ -16,7 +16,7 @@ from sphinx.application import ExtensionError, SphinxError
 
 __author__ = '@Robpol86'
 __license__ = 'MIT'
-__version__ = '1.0.0'
+__version__ = '1.1.0'
 RE_SHORTNAME = re.compile('^[a-zA-Z0-9-]{3,50}$')
 STATIC_DIR = os.path.join(os.path.dirname(__file__), '_static')
 
