@@ -12,7 +12,7 @@ import re
 
 from docutils import nodes
 from docutils.parsers.rst import Directive
-from sphinx.application import ExtensionError, SphinxError
+from sphinx.errors import ExtensionError, SphinxError
 
 __author__ = '@Robpol86'
 __license__ = 'MIT'
