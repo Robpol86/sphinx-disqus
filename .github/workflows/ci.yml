@@ -1,7 +1,7 @@
 name: ci
 
 on:
-  pull_request:
+  pull_request: {types: [synchronize]}
   push:
 
 jobs:
