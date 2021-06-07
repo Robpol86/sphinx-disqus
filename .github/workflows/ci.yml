@@ -1,0 +1,39 @@
+name: ci
+
+on:
+  pull_request:
+  push:
+
+jobs:
+
+  test:
+    name: Test
+    strategy:
+      matrix:
+        os: [ubuntu-latest]  # TODO windows-latest
+        python: [3.6, 3.7, 3.8, 3.9]
+    runs-on: "${{matrix.os}}"
+    env:
+      PY_COLORS: 1
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2
+      - name: Install Python
+        id: py
+        uses: actions/setup-python@v2
+        with: {python-version: "${{matrix.python}}"}
+      - name: Install Poetry
+        uses: abatilo/actions-poetry@v2.1.2
+      - name: Install dependencies
+        run: make deps
+      - name: Run lints
+        run: make lint
+      - name: Run tests
+        run: make test
+      - name: Run integration tests
+        run: make it
+      - name: Upload coverage
+        uses: codecov/codecov-action@v1.5.0
+        with: {name: "coverage-${{runner.os}}-py${{steps.py.outputs.python-version}}"}
+    outputs:
+      python-version: "${{steps.py.outputs.python-version}}"

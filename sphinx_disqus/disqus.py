@@ -4,9 +4,6 @@ https://sphinxcontrib-disqus.readthedocs.org
 https://github.com/Robpol86/sphinxcontrib-disqus
 https://pypi.python.org/pypi/sphinxcontrib-disqus
 """
-
-from __future__ import print_function
-
 import os
 import re
 
@@ -14,9 +11,8 @@ from docutils import nodes
 from docutils.parsers.rst import Directive
 from sphinx.errors import ExtensionError, SphinxError
 
-__author__ = '@Robpol86'
-__license__ = 'MIT'
-__version__ = '1.1.0'
+from sphinx_disqus import __version__
+
 RE_SHORTNAME = re.compile('^[a-zA-Z0-9-]{3,50}$')
 STATIC_DIR = os.path.join(os.path.dirname(__file__), '_static')
 
