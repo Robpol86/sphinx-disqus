@@ -24,6 +24,7 @@ requirements.txt: poetry.lock
 lint: _HELP = Run linters
 lint: deps
 	poetry check
+	poetry run black --check --color --diff .
 	poetry run flake8 --application-import-names $(PROJECT_NAME),tests
 	poetry run pylint $(PROJECT_NAME) tests
 
@@ -55,7 +56,7 @@ all: lint test it
 
 clean: _HELP = Remove temporary files
 clean:
-	rm -rf *.egg-info/ *cache*/ .*cache*/ .coverage coverage.xml htmlcov/ .venv/ dist/
+	rm -rf *.egg-info/ *cache*/ .*cache*/ .coverage coverage.xml htmlcov/ .venv/ dist/ requirements.txt
 	find . -name __pycache__ -type d -exec rm -r {} +
 
 define MAKEFILE_HELP_AWK

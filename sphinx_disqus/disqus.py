@@ -13,14 +13,14 @@ from sphinx.errors import ExtensionError, SphinxError
 
 from sphinx_disqus import __version__
 
-RE_SHORTNAME = re.compile('^[a-zA-Z0-9-]{3,50}$')
-STATIC_DIR = os.path.join(os.path.dirname(__file__), '_static')
+RE_SHORTNAME = re.compile("^[a-zA-Z0-9-]{3,50}$")
+STATIC_DIR = os.path.join(os.path.dirname(__file__), "_static")
 
 
 class DisqusError(SphinxError):
     """Non-configuration error. Raised when directive has bad options."""
 
-    category = 'Disqus option error'
+    category = "Disqus option error"
 
 
 class DisqusNode(nodes.General, nodes.Element):
@@ -40,16 +40,16 @@ class DisqusNode(nodes.General, nodes.Element):
     def visit(spht, node):
         """Append opening tags to document body list."""
         html_attrs = {
-            'ids': ['disqus_thread'],
-            'data-disqus-shortname': node.disqus_shortname,
-            'data-disqus-identifier': node.disqus_identifier,
+            "ids": ["disqus_thread"],
+            "data-disqus-shortname": node.disqus_shortname,
+            "data-disqus-identifier": node.disqus_identifier,
         }
-        spht.body.append(spht.starttag(node, 'div', '', **html_attrs))
+        spht.body.append(spht.starttag(node, "div", "", **html_attrs))
 
     @staticmethod
     def depart(spht, _):
         """Append closing tags to document body list."""
-        spht.body.append('</div>')
+        spht.body.append("</div>")
 
 
 class DisqusDirective(Directive):
@@ -65,9 +65,9 @@ class DisqusDirective(Directive):
         """
         disqus_shortname = self.state.document.settings.env.config.disqus_shortname
         if not disqus_shortname:
-            raise ExtensionError('disqus_shortname config value must be set for the disqus extension to work.')
+            raise ExtensionError("disqus_shortname config value must be set for the disqus extension to work.")
         if not RE_SHORTNAME.match(disqus_shortname):
-            raise ExtensionError('disqus_shortname config value must be 3-50 letters, numbers, and hyphens only.')
+            raise ExtensionError("disqus_shortname config value must be 3-50 letters, numbers, and hyphens only.")
         return disqus_shortname
 
     def get_identifier(self):
@@ -76,12 +76,12 @@ class DisqusDirective(Directive):
         :returns: disqus_identifier config value.
         :rtype: str
         """
-        if 'disqus_identifier' in self.options:
-            return self.options['disqus_identifier']
+        if "disqus_identifier" in self.options:
+            return self.options["disqus_identifier"]
 
         title_nodes = self.state.document.traverse(nodes.title)
         if not title_nodes:
-            raise DisqusError('No title nodes found in document, cannot derive disqus_identifier config value.')
+            raise DisqusError("No title nodes found in document, cannot derive disqus_identifier config value.")
         return title_nodes[0].astext()
 
     def run(self):
@@ -107,9 +107,9 @@ def event_html_page_context(app, pagename, templatename, context, doctree):
     :param docutils.nodes.document doctree: Tree of docutils nodes.
     """
     assert app or pagename or templatename  # Unused, for linting.
-    if 'script_files' in context and doctree and any(hasattr(n, 'disqus_shortname') for n in doctree.traverse()):
+    if "script_files" in context and doctree and any(hasattr(n, "disqus_shortname") for n in doctree.traverse()):
         # Clone list to prevent leaking into other pages and add disqus.js to this page.
-        context['script_files'] = context['script_files'][:] + ['_static/disqus.js']
+        context["script_files"] = context["script_files"][:] + ["_static/disqus.js"]
 
 
 def setup(app):
@@ -120,9 +120,9 @@ def setup(app):
     :returns: Extension version.
     :rtype: dict
     """
-    app.add_config_value('disqus_shortname', None, True)
-    app.add_directive('disqus', DisqusDirective)
+    app.add_config_value("disqus_shortname", None, True)
+    app.add_directive("disqus", DisqusDirective)
     app.add_node(DisqusNode, html=(DisqusNode.visit, DisqusNode.depart))
     app.config.html_static_path.append(os.path.relpath(STATIC_DIR, app.confdir))
-    app.connect('html-page-context', event_html_page_context)
+    app.connect("html-page-context", event_html_page_context)
     return dict(version=__version__)
