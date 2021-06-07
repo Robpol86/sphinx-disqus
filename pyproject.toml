@@ -32,12 +32,13 @@ classifiers = [
 repository = "https://github.com/Robpol86/sphinx-disqus"
 
 [tool.poetry.dependencies]
-python = "^3.6"
+python = "^3.6.2"
 # Project dependencies.
 sphinx = "1.4.5"  # TODO
 
 [tool.poetry.dev-dependencies]
 # Linters.
+black = "*"
 flake8 = "*"
 flake8-docstrings = "*"
 flake8-import-order = "*"
@@ -50,6 +51,10 @@ pytest-cov = "*"
 pytest-icdiff = "*"
 # Project.
 sphinx = "1.4.5"  # TODO
+
+[tool.black]
+line-length = 125
+target-version = ["py36", "py37", "py38", "py39"]
 
 [tool.coverage.report]
 exclude_lines = [
