@@ -8,7 +8,7 @@ import pytest
 BASE_CONFIG = """\
 import sys
 sys.path.append('{}')
-extensions = ['sphinxcontrib.disqus']
+extensions = ['sphinx_disqus.disqus']
 master_doc = 'index'
 nitpicky = True
 """

@@ -1,0 +1,64 @@
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"
+
+[tool.poetry]
+name = "sphinx-disqus"
+version = "1.1.0"
+description = "Embed Disqus comments in Sphinx documents/pages."
+authors = ["Robpol86 <robpol86@gmail.com>"]
+license = "BSD-2-Clause"
+classifiers = [
+    'Development Status :: 5 - Production/Stable',
+    'Environment :: MacOS X',
+    'Environment :: Plugins',
+    'Environment :: Win32 (MS Windows)',
+    'Framework :: Sphinx :: Extension',
+    'Intended Audience :: Developers',
+    'License :: OSI Approved :: MIT License',
+    'Operating System :: MacOS :: MacOS X',
+    'Operating System :: Microsoft :: Windows',
+    'Operating System :: POSIX :: Linux',
+    'Operating System :: POSIX',
+    'Programming Language :: Python :: 3.6',
+    'Programming Language :: Python :: 3.7',
+    'Programming Language :: Python :: 3.8',
+    'Programming Language :: Python :: 3.9',
+    'Topic :: Documentation :: Sphinx',
+    'Topic :: Software Development :: Documentation',
+]
+
+[tool.poetry.urls]
+repository = "https://github.com/Robpol86/sphinx-disqus"
+
+[tool.poetry.dependencies]
+python = "^3.6"
+# Project dependencies.
+sphinx = "1.4.5"  # TODO
+
+[tool.poetry.dev-dependencies]
+# Linters.
+flake8 = "*"
+flake8-docstrings = "*"
+flake8-import-order = "*"
+pep8-naming = "*"
+pylint = "*"
+# Tests.
+coverage = {version = "*", extras = ["toml"]}
+pytest = "*"
+pytest-cov = "*"
+pytest-icdiff = "*"
+# Project.
+sphinx = "1.4.5"  # TODO
+
+[tool.coverage.report]
+exclude_lines = [
+    "^\\s*from",
+    "^\\s*import",
+    "^\\s*raise AssertionError",
+    "^\\s*raise NotImplementedError",
+]
+fail_under = 85
+
+[tool.coverage.run]
+branch = true

@@ -7,12 +7,12 @@ import pytest
 from docutils.parsers.rst import directives, roles
 from sphinx import application
 
-from sphinxcontrib.disqus import DisqusError
+from sphinx_disqus.disqus import DisqusError
 
 BASE_CONFIG = """\
 import sys
 sys.path.append('{}')
-extensions = ['sphinxcontrib.disqus']
+extensions = ['sphinx_disqus.disqus']
 master_doc = 'index'
 nitpicky = True
 disqus_shortname = 'good'
@@ -50,4 +50,4 @@ def test(monkeypatch, tmpdir, expected, rst_title, option):
 
     with pytest.raises(DisqusError) as exc:
         app.builder.build_all()
-    assert 'No title nodes found in document, cannot derive disqus_identifier config value.' == exc.value.args[0]
+    assert exc.value.args[0] == 'No title nodes found in document, cannot derive disqus_identifier config value.'
