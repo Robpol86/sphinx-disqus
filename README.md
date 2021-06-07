@@ -34,7 +34,7 @@ pip install sphinx-disqus
 To use in Sphinx simply add to your `conf.py`:
 
 ```python
-extensions = ["sphinx_disqus"]
+extensions = ["sphinx_disqus.disqus"]
 disqus_shortname = "my-cool-project"
 ```
 
