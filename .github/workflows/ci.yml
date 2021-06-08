@@ -1,7 +1,7 @@
-name: Continuous Integration
+name: ci
 
 on:
-  pull_request:
+  pull_request: {types: [synchronize]}
   push:
 
 jobs:
@@ -12,7 +12,6 @@ jobs:
       matrix:
         os: [ubuntu-latest]  # TODO windows-latest
         python: [3.6, 3.7, 3.8, 3.9]
-    if: "github.event_name == 'push' || github.event.pull_request.head.repo.full_name != github.repository"
     runs-on: "${{matrix.os}}"
     env:
       PY_COLORS: 1
