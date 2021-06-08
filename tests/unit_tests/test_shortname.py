@@ -4,6 +4,7 @@ import re
 
 import py
 import pytest
+from _pytest.monkeypatch import MonkeyPatch
 from docutils.parsers.rst import directives, roles
 from sphinx import application, errors
 
@@ -24,7 +25,7 @@ PARAMS = [
 
 
 @pytest.mark.parametrize("tail,expected_error", PARAMS)
-def test(monkeypatch, tmpdir, tail, expected_error):
+def test(monkeypatch: MonkeyPatch, tmpdir: py.path.local, tail: str, expected_error: str):
     """Test valid and invalid values."""
     tmpdir.join("conf.py").write(BASE_CONFIG.format(py.path.local(__file__).join("..", "..")))
     tmpdir.join("conf.py").write(tail, mode="a")
