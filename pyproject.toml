@@ -49,6 +49,10 @@ coverage = {version = "*", extras = ["toml"]}
 pytest = "*"
 pytest-cov = "*"
 pytest-icdiff = "*"
+# Docs.
+myst-parser = "*"
+sphinx = "*"
+sphinx-rtd-theme = "*"
 
 [tool.black]
 line-length = 125

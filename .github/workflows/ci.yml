@@ -1,7 +1,8 @@
-name: ci
+name: Continuous Integration
 
 on:
-  pull_request: {types: [synchronize]}
+  # TODO tag/release
+  pull_request:
   push:
 
 jobs:
@@ -10,8 +11,9 @@ jobs:
     name: Test
     strategy:
       matrix:
-        os: [ubuntu-latest]  # TODO windows-latest
+        os: [ubuntu-latest, windows-latest]
         python: [3.6, 3.7, 3.8, 3.9]
+    if: "github.event_name == 'push' || github.event.pull_request.head.repo.full_name != github.repository"
     runs-on: "${{matrix.os}}"
     env:
       PY_COLORS: 1
@@ -23,6 +25,23 @@ jobs:
       - {name: Run lints, run: make lint}
       - {name: Run tests, run: make test}
       - {name: Run integration tests, run: make it}
+      - {name: Build docs, run: make docs}
       - name: Upload coverage
         uses: codecov/codecov-action@v1.5.0
         with: {name: "coverage-${{runner.os}}-py${{steps.py.outputs.python-version}}"}
+
+#  publish:
+#    name: Publish to PyPI  # TODO also publish docs
+#    needs: [test]
+#    if: github.event_name == 'push' && startsWith(github.event.ref, 'refs/tags')  # TODO new release only?
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Check out repository code
+#        uses: actions/checkout@v2
+#      - name: Install Python
+#        id: py
+#        uses: actions/setup-python@v2
+#        with: {python-version: "${{needs.test.outputs.python-version}}"}
+#      - name: Install Poetry
+#        uses: abatilo/actions-poetry@v2.1.2
+#      # TODO

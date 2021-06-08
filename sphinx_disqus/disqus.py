@@ -32,7 +32,7 @@ class DisqusNode(nodes.General, nodes.Element):
         :param str disqus_shortname: Required Disqus forum name identifying the website.
         :param str disqus_identifier: Unique identifier for each page where Disqus is present.
         """
-        super(DisqusNode, self).__init__()
+        super().__init__()
         self.disqus_shortname = disqus_shortname
         self.disqus_identifier = disqus_identifier
 
@@ -79,10 +79,10 @@ class DisqusDirective(Directive):
         if "disqus_identifier" in self.options:
             return self.options["disqus_identifier"]
 
-        title_nodes = self.state.document.traverse(nodes.title)
-        if not title_nodes:
+        title_node = next(iter(self.state.document.traverse(nodes.title)), None)
+        if not title_node:
             raise DisqusError("No title nodes found in document, cannot derive disqus_identifier config value.")
-        return title_nodes[0].astext()
+        return title_node.astext()
 
     def run(self):
         """Executed by Sphinx.
@@ -123,6 +123,9 @@ def setup(app):
     app.add_config_value("disqus_shortname", None, True)
     app.add_directive("disqus", DisqusDirective)
     app.add_node(DisqusNode, html=(DisqusNode.visit, DisqusNode.depart))
-    app.config.html_static_path.append(os.path.relpath(STATIC_DIR, app.confdir))
+    try:
+        app.config.html_static_path.append(os.path.relpath(STATIC_DIR, app.confdir))
+    except ValueError:
+        app.config.html_static_path.append(STATIC_DIR)
     app.connect("html-page-context", event_html_page_context)
     return dict(version=__version__)

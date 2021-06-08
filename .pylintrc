@@ -1,6 +1,4 @@
 [pylint]
-disable =
-    super-with-arguments,
 good-names =
     i,j,k,ex,Run,_,
     x,y,z,fd,

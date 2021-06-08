@@ -46,3 +46,28 @@ Also add this to any document you wish to have comments:
 ```rst
 .. disqus::
 ```
+
+## TODO
+
+1. publish (then delete, new package name anyway)
+1. other todos in README.
+
+* don't run ci on push when a pr exists for the same commit
+* drop google analytics from docs
+* include LICENSE in package
+* https://github.com/search?q=%22tool.pylint%22+similarities&type=Code
+* https://docs.pytest.org/en/6.2.x/customize.html#pyproject-toml
+* test external PR
+* readthedocs theme and hosting, no github pages
+* delete gh-pages branch
+* unignore docs/ linting
+* s/README.rst/README.md/
+* more tool.poetry.urls
+* Update gh repo link to rtd docs.
+* Explore gh Packages section.
+* revisit classifiers
+* revisit linting/test ignores/skips
+* https://www.python.org/dev/peps/pep-0423/#how-to-rename-a-project
+* Move CHANGELOG validation out of pytest and into gh workflow (like black does)
+* Redo docstrings and args with type hints.
+* Integration test with no dev dependencies
