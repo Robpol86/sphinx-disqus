@@ -67,7 +67,6 @@ fail_under = 85
 branch = true
 
 [tool.pylint.FORMAT]
-disable = ["super-with-arguments"]
 good-names = ["i", "j", "k", "ex", "Run", "_", "x", "y", "z", "fd"]
 ignore = [".venv/*", "build/*", "dist/*"]
 max-args = 6
