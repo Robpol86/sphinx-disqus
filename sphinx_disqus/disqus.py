@@ -6,9 +6,12 @@ https://pypi.python.org/pypi/sphinxcontrib-disqus
 """
 import os
 import re
+from typing import Dict, List
 
 from docutils import nodes
+from docutils.nodes import document
 from docutils.parsers.rst import Directive
+from sphinx.application import Sphinx
 from sphinx.errors import ExtensionError, SphinxError
 
 from sphinx_disqus import __version__
@@ -26,11 +29,11 @@ class DisqusError(SphinxError):
 class DisqusNode(nodes.General, nodes.Element):
     """Disqus <div /> node for Sphinx/docutils."""
 
-    def __init__(self, disqus_shortname, disqus_identifier):
+    def __init__(self, disqus_shortname: str, disqus_identifier: str):
         """Store directive options during instantiation.
 
-        :param str disqus_shortname: Required Disqus forum name identifying the website.
-        :param str disqus_identifier: Unique identifier for each page where Disqus is present.
+        :param disqus_shortname: Required Disqus forum name identifying the website.
+        :param disqus_identifier: Unique identifier for each page where Disqus is present.
         """
         super(DisqusNode, self).__init__()
         self.disqus_shortname = disqus_shortname
@@ -57,11 +60,10 @@ class DisqusDirective(Directive):
 
     option_spec = dict(disqus_identifier=str)
 
-    def get_shortname(self):
+    def get_shortname(self) -> str:
         """Validate and returns disqus_shortname config value.
 
         :returns: disqus_shortname config value.
-        :rtype: str
         """
         disqus_shortname = self.state.document.settings.env.config.disqus_shortname
         if not disqus_shortname:
@@ -70,11 +72,10 @@ class DisqusDirective(Directive):
             raise ExtensionError("disqus_shortname config value must be 3-50 letters, numbers, and hyphens only.")
         return disqus_shortname
 
-    def get_identifier(self):
+    def get_identifier(self) -> str:
         """Validate and returns disqus_identifier option value.
 
         :returns: disqus_identifier config value.
-        :rtype: str
         """
         if "disqus_identifier" in self.options:
             return self.options["disqus_identifier"]
@@ -84,27 +85,26 @@ class DisqusDirective(Directive):
             raise DisqusError("No title nodes found in document, cannot derive disqus_identifier config value.")
         return title_nodes[0].astext()
 
-    def run(self):
+    def run(self) -> List:
         """Executed by Sphinx.
 
         :returns: Single DisqusNode instance with config values passed as arguments.
-        :rtype: list
         """
         disqus_shortname = self.get_shortname()
         disqus_identifier = self.get_identifier()
         return [DisqusNode(disqus_shortname, disqus_identifier)]
 
 
-def event_html_page_context(app, pagename, templatename, context, doctree):
+def event_html_page_context(app: Sphinx, pagename: str, templatename: str, context: dict, doctree: document):
     """Called when the HTML builder has created a context dictionary to render a template with.
 
     Conditionally adding disqus.js to <head /> if the directive is used in a page.
 
-    :param sphinx.application.Sphinx app: Sphinx application object.
-    :param str pagename: Name of the page being rendered (without .html or any file extension).
-    :param str templatename: Page name with .html.
-    :param dict context: Jinja2 HTML context.
-    :param docutils.nodes.document doctree: Tree of docutils nodes.
+    :param app: Sphinx application object.
+    :param pagename: Name of the page being rendered (without .html or any file extension).
+    :param templatename: Page name with .html.
+    :param context: Jinja2 HTML context.
+    :param doctree: Tree of docutils nodes.
     """
     assert app or pagename or templatename  # Unused, for linting.
     if "script_files" in context and doctree and any(hasattr(n, "disqus_shortname") for n in doctree.traverse()):
@@ -112,13 +112,12 @@ def event_html_page_context(app, pagename, templatename, context, doctree):
         context["script_files"] = context["script_files"][:] + ["_static/disqus.js"]
 
 
-def setup(app):
+def setup(app: Sphinx) -> Dict[str, str]:
     """Called by Sphinx during phase 0 (initialization).
 
     :param app: Sphinx application object.
 
     :returns: Extension version.
-    :rtype: dict
     """
     app.add_config_value("disqus_shortname", None, True)
     app.add_directive("disqus", DisqusDirective)

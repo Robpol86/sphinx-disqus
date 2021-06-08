@@ -65,3 +65,25 @@ fail_under = 85
 
 [tool.coverage.run]
 branch = true
+
+[tool.pylint.FORMAT]
+disable = ["super-with-arguments"]
+good-names = ["i", "j", "k", "ex", "Run", "_", "x", "y", "z", "fd"]
+ignore = [".venv/*", "build/*", "dist/*"]
+max-args = 6
+max-line-length = 125
+reports = false
+
+[tool.pylint.SIMILARITIES]
+ignore-imports = true
+min-similarity-lines = 7
+
+[tool.pylint.TYPECHECK]
+ignored-modules = ["distutils", "py"]
+
+[tool.pytest.ini_options]
+addopts = "--cov-report=term-missing --durations=15 --showlocals --verbose --verbose"
+filterwarnings = [
+    "ignore::DeprecationWarning:sphinx.*:",
+]
+log_level = "DEBUG"

@@ -1,5 +1,4 @@
 """Test extension with regular sphinx-build command."""
-
 from subprocess import CalledProcessError, check_output, STDOUT
 
 import py
@@ -22,12 +21,12 @@ SHORTNAME_PARAMS = [
 
 
 @pytest.mark.parametrize("tail,expected_error", SHORTNAME_PARAMS)
-def test_shortname(tmpdir, tail, expected_error):
+def test_shortname(tmpdir: py.path.local, tail: str, expected_error: str):
     """Test working and errors for disqus_shortname configuration.
 
     :param tmpdir: pytest fixture.
-    :param str tail: Append to conf.py.
-    :param str expected_error: Expected error message.
+    :param tail: Append to conf.py.
+    :param expected_error: Expected error message.
     """
     tmpdir.join("conf.py").write(BASE_CONFIG.format(py.path.local(__file__).join("..", "..")))
     tmpdir.join("conf.py").write(tail, mode="a")
@@ -56,11 +55,11 @@ def test_shortname(tmpdir, tail, expected_error):
 
 
 @pytest.mark.parametrize("rst_title", ["====\nMain\n====\n\n", ""])
-def test_identifier(tmpdir, rst_title):
+def test_identifier(tmpdir: py.path.local, rst_title: str):
     """Test working and errors for disqus_identifier configuration.
 
     :param tmpdir: pytest fixture.
-    :param str rst_title: Title of index.rst.
+    :param rst_title: Title of index.rst.
     """
     tmpdir.join("conf.py").write(BASE_CONFIG.format(py.path.local(__file__).join("..", "..")))
     tmpdir.join("conf.py").write("disqus_shortname = 'good'", mode="a")
