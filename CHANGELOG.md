@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+- Support for Sphinx 3.x and 4.x ([#7](https://github.com/Robpol86/sphinx-disqus/pull/7))
 - Re-licensed from MIT to BSD 2-Clause.
 - Dropped Python 2.7 and <3.6 support.
 
