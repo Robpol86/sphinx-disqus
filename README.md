@@ -52,7 +52,6 @@ Also add this to any document you wish to have comments:
 1. publish (then delete, new package name anyway)
 1. other todos in README.
 
-* don't run ci on push when a pr exists for the same commit
 * drop google analytics from docs
 * include LICENSE in package
 * https://github.com/search?q=%22tool.pylint%22+similarities&type=Code
