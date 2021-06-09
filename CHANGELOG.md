@@ -7,10 +7,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-- Support for Sphinx 3.x and 4.x ([#7](https://github.com/Robpol86/sphinx-disqus/pull/7))
-- Fixed docutils warning for `traverse()` ([#14](https://github.com/Robpol86/sphinx-disqus/pull/14))
-- Re-licensed from MIT to BSD 2-Clause.
-- Dropped Python 2.7 and <3.6 support.
+### Added
+
+- Support for `file://` ([#15](https://github.com/Robpol86/sphinx-disqus/pull/15))
+
+### Removed
+
+- Dropped Python 2.7 and <3.6 support
+
+### Fixed
+
+- Support for Sphinx 1.6+ ([#7](https://github.com/Robpol86/sphinx-disqus/pull/7))
+- Fixed new html_static_path append and timing ([#15](https://github.com/Robpol86/sphinx-disqus/pull/15))
+
+### Changed
+
+- Re-licensed from MIT to BSD 2-Clause
+- Renamed project from `sphinxcontrib-disqus` to `sphinx-disqus`
+- Updated disqus.js with their latest universal code
 
 ## [1.1.0] - 2016-08-04
 
