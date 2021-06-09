@@ -11,7 +11,7 @@ poetry.lock:
 .PHONY: deps
 deps: _HELP = Install project dependencies
 deps:
-	poetry install
+	poetry install -E docs
 	poetry run python -V
 
 requirements.txt: _HELP = Generate development requirements.txt
@@ -50,13 +50,23 @@ itpdb: deps
 
 .PHONY: all
 all: _HELP = Run linters, unit tests, and integration tests
-all: lint test it
+all: lint test it docs
+
+## Build
+
+docs/_build/html/index.html: deps
+	poetry run sphinx-build -a -E -n -W docs $(@D)
+	@echo Documentation available here: $@
+
+.PHONY: docs
+docs: _HELP = Build HTML documentation
+docs: docs/_build/html/index.html
 
 ## Misc
 
 clean: _HELP = Remove temporary files
 clean:
-	rm -rf *.egg-info/ *cache*/ .*cache*/ .coverage coverage.xml htmlcov/ .venv/ dist/ requirements.txt
+	rm -rf *.egg-info/ *cache*/ .*cache*/ .coverage coverage.xml htmlcov/ .venv/ dist/ docs/_build requirements.txt
 	find . -name __pycache__ -type d -exec rm -r {} +
 
 define MAKEFILE_HELP_AWK

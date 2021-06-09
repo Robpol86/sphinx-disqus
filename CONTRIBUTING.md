@@ -56,7 +56,18 @@ Additional code style rules:
 
 ## Updating Docs
 
-> TODO
+If you're adding a new feature you'll need to update the [Sphinx](http://sphinx-doc.org/) documentation for this project.
+Docs are located in the [docs](./docs) directory and can be written using
+[reStructuredText](https://www.sphinx-doc.org/en/master/usage/restructuredtext/basics.html) or
+[Markdown](https://myst-parser.readthedocs.io/en/latest/using/syntax.html).
+
+To locally build docs and view them in a browser you can run:
+
+```bash
+make docs
+```
+
+Then browse to: `docs/_build/html/index.html`
 
 ## Thank You!
 
