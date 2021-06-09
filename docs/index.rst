@@ -37,12 +37,6 @@ server. You can fire one up easily running these commands (tested on OS X) after
     install
     usage
 
-.. toctree::
-    :maxdepth: 1
-    :caption: Appendix
-
-    changelog
-
 Comments
 ========
 

@@ -4,7 +4,7 @@ Embed [Disqus](https://disqus.com) comments in Sphinx documents/pages.
 
 * Python 3.6, 3.7, 3.8, and 3.9 supported on Linux, macOS, and Windows.
 
-📖 Full documentation: TBD
+📖 Full documentation: https://sphinx-disqus.readthedocs.io
 
 [![Github-CI][github-ci]][github-link]
 [![Coverage Status][codecov-badge]][codecov-link]

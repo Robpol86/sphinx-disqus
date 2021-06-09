@@ -20,6 +20,7 @@ classifiers = [
     "Operating System :: Microsoft :: Windows",
     "Operating System :: POSIX :: Linux",
     "Operating System :: POSIX",
+    "Programming Language :: Python :: 3 :: Only",
     "Programming Language :: Python :: 3.6",
     "Programming Language :: Python :: 3.7",
     "Programming Language :: Python :: 3.8",
@@ -29,12 +30,23 @@ classifiers = [
 ]
 
 [tool.poetry.urls]
+documentation = "https://sphinx-disqus.readthedocs.io"
+homepage = "https://pypi.org/project/sphinx-disqus"
 repository = "https://github.com/Robpol86/sphinx-disqus"
 
 [tool.poetry.dependencies]
 python = "^3.6.2"
 # Project dependencies.
 sphinx = "*"
+# Docs.
+sphinx-notfound-page = {version = "*", optional = true}
+sphinx-panels = {version = "*", optional = true}
+sphinx-rtd-theme = {version = "*", optional = true}
+sphinx_copybutton = {version = "*", optional = true}
+toml = {version = "*", optional = true}
+
+[tool.poetry.extras]
+docs = ["sphinx-notfound-page", "sphinx-panels", "sphinx-rtd-theme", "sphinx_copybutton", "toml"]
 
 [tool.poetry.dev-dependencies]
 # Linters.

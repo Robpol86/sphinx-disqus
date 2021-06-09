@@ -23,6 +23,7 @@ jobs:
       - {name: Run lints, run: make lint}
       - {name: Run tests, run: make test}
       - {name: Run integration tests, run: make it}
+      - {name: Build docs, run: make docs}
       - name: Upload coverage
         uses: codecov/codecov-action@v1.5.0
         with: {name: "coverage-${{runner.os}}-py${{steps.py.outputs.python-version}}"}
