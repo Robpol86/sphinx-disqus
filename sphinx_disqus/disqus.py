@@ -1,8 +1,8 @@
 """Sphinx extension that embeds Disqus comments in documents.
 
-https://sphinxcontrib-disqus.readthedocs.org
-https://github.com/Robpol86/sphinxcontrib-disqus
-https://pypi.python.org/pypi/sphinxcontrib-disqus
+https://sphinx-disqus.readthedocs.io
+https://github.com/Robpol86/sphinx-disqus
+https://pypi.org/project/sphinx-disqus
 """
 import os
 import re
@@ -122,9 +122,6 @@ def setup(app: Sphinx) -> Dict[str, str]:
     app.add_config_value("disqus_shortname", None, True)
     app.add_directive("disqus", DisqusDirective)
     app.add_node(DisqusNode, html=(DisqusNode.visit, DisqusNode.depart))
-    try:
-        app.config.html_static_path.append(os.path.relpath(STATIC_DIR, app.confdir))
-    except ValueError:
-        app.config.html_static_path.append(STATIC_DIR)
+    app.connect("builder-inited", lambda app_: app_.config.html_static_path.append(STATIC_DIR))
     app.connect("html-page-context", event_html_page_context)
     return dict(version=__version__)

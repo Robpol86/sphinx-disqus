@@ -1,10 +1,21 @@
-var disqus_shortname;
-var disqus_identifier;
-(function() {{
-    var disqus_thread = $("#disqus_thread");
-    disqus_shortname = disqus_thread.data('disqus-shortname');
-    disqus_identifier = disqus_thread.data('disqus-identifier');
-    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-}})();
+var disqus_config; // Accessed by embed.js
+const SphinxDisqus = {
+    init: function () {
+        let disqus_thread = $("#disqus_thread"); // Disqus <div />
+        let disqus_shortname = disqus_thread.data('disqus-shortname');
+        let disqus_identifier = disqus_thread.data('disqus-identifier');
+
+        // Disqus universal code below: https://disqus.com/admin/install/platforms/universalcode/
+        disqus_config = function () {
+            this.page.identifier = disqus_identifier;
+        };
+        let d = document, s = d.createElement('script');
+        s.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    },
+};
+
+$(document).ready(function () {
+    SphinxDisqus.init();
+});
