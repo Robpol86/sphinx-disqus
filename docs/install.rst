@@ -6,33 +6,69 @@ Installation
 
 Getting started is pretty simple. The first step is to install the library.
 
-Pip Install
-===========
+.. tabbed:: Install from PyPI
 
-The easiest way to get sphinxcontrib-disqus is to use `pip <https://pip.pypa.io>`_. Simply run this command.
+    .. code-block:: bash
 
-.. code-block:: bash
+        pip install sphinx-disqus
 
-    pip install sphinxcontrib-disqus
+.. tabbed:: Install from GitHub
 
-Latest from GitHub
-==================
+    .. code-block:: bash
 
-You can also elect to install the latest bleeding-edge version by using pip to install directly from the GitHub
-repository.
+        pip install git+https://github.com/Robpol86/sphinx-disqus@master
 
-.. code-block:: bash
+Once the package is installed add this extension to your Sphinx’s extensions list in the ``conf.py`` file. You'll also need to
+define your `Disqus shortname <https://help.disqus.com/en/articles/1717111-what-s-a-shortname>`_ in the same file.
 
-    pip install git+https://github.com/Robpol86/sphinxcontrib-disqus.git
+.. code-block:: python
 
-Clone and Install
-=================
+    # conf.py
+    extensions = [
+         # ... other extensions here
+         "sphinx_disqus.disqus",
+    ]
+    disqus_shortname = "my-cool-project"
 
-Lastly you can also just clone the repo and install from it. Usually you only need to do this if you plan on
-`contributing <https://github.com/Robpol86/sphinxcontrib-disqus/blob/master/CONTRIBUTING.md>`_ to the project.
+The last step is to enable comments on each document.
 
-.. code-block:: bash
+.. tabbed:: reStructuredText
 
-    git clone https://github.com/Robpol86/sphinxcontrib-disqus.git
-    cd sphinxcontrib-disqus
-    python setup.py install
+    .. code-block:: rst
+
+        .. disqus::
+
+.. tabbed:: MyST Markdown
+
+    .. code-block:: md
+
+        ```{disqus}
+        ```
+
+Specifying an Identifier
+========================
+
+By default the extension will define the
+`Disqus identifier <https://help.disqus.com/customer/portal/articles/472099-what-is-a-disqus-identifier->`_ using the
+document title. To override this behavior you can define your own identifier for a particular document using the
+``disqus_identifier`` option.
+
+.. tabbed:: reStructuredText
+
+    .. code-block:: rst
+
+        .. disqus::
+            :disqus_identifier: name_of_this_page
+
+.. tabbed:: MyST Markdown
+
+    .. code-block:: md
+
+        ```{disqus}
+        :disqus_identifier: name_of_this_page
+        ```
+
+Comments
+========
+
+.. disqus::
