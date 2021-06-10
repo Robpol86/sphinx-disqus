@@ -755,7 +755,7 @@ docs = ["sphinx-notfound-page", "sphinx-panels", "sphinx-rtd-theme", "sphinx_cop
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.6.2"
-content-hash = "d6775ee7af55ea2fe8b9d3854d1bf32235392b061ecb515fbba425372243c01d"
+content-hash = "3c268c71f554f9da41a2db121647d0034135b067af88060a9d5da133035213e0"
 
 [metadata.files]
 alabaster = [

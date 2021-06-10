@@ -49,10 +49,15 @@ itpdb: deps
 	poetry run pytest --pdb tests/integration_tests
 
 .PHONY: all
-all: _HELP = Run linters, unit tests, and integration tests
-all: lint test it docs
+all: _HELP = Run linters, unit tests, integration tests, and builds
+all: lint test it docs build
 
 ## Build
+
+.PHONY: build
+build: _HELP = Build Python package (sdist and wheel)
+build:
+	poetry build -n -vvv
 
 docs/_build/html/index.html: deps
 	poetry run sphinx-build -a -E -n -W docs $(@D)
@@ -66,8 +71,12 @@ docs: docs/_build/html/index.html
 
 clean: _HELP = Remove temporary files
 clean:
-	rm -rf *.egg-info/ *cache*/ .*cache*/ .coverage coverage.xml htmlcov/ .venv/ dist/ docs/_build requirements.txt
+	rm -rfv *.egg-info/ *cache*/ .*cache*/ .coverage coverage.xml htmlcov/ dist/ docs/_build requirements.txt
 	find . -name __pycache__ -type d -exec rm -r {} +
+
+distclean: _HELP = Remove temporary files including virtualenv
+distclean: clean
+	rm -rf .venv/
 
 define MAKEFILE_HELP_AWK
 BEGIN {
