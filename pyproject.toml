@@ -4,7 +4,7 @@ build-backend = "poetry.masonry.api"
 
 [tool.poetry]
 name = "sphinx-disqus"
-version = "1.1.0"
+version = "1.2.0"
 description = "Embed Disqus comments in Sphinx documents/pages."
 readme = "README.md"
 authors = ["Robpol86 <robpol86@gmail.com>"]

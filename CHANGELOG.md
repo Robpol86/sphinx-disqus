@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+- TBD
+
+## [1.2.0] - 2021-06-10
+
 ### Added
 
 - Support for `file://` ([#15](https://github.com/Robpol86/sphinx-disqus/pull/15))
