@@ -6,6 +6,7 @@ build-backend = "poetry.masonry.api"
 name = "sphinx-disqus"
 version = "1.1.0"
 description = "Embed Disqus comments in Sphinx documents/pages."
+readme = "README.md"
 authors = ["Robpol86 <robpol86@gmail.com>"]
 license = "BSD-2-Clause"
 classifiers = [
@@ -31,7 +32,6 @@ classifiers = [
 
 [tool.poetry.urls]
 documentation = "https://sphinx-disqus.readthedocs.io"
-homepage = "https://pypi.org/project/sphinx-disqus"
 repository = "https://github.com/Robpol86/sphinx-disqus"
 
 [tool.poetry.dependencies]
@@ -51,16 +51,18 @@ docs = ["sphinx-notfound-page", "sphinx-panels", "sphinx-rtd-theme", "sphinx_cop
 [tool.poetry.dev-dependencies]
 # Linters.
 black = "*"
-flake8 = "*"
-flake8-docstrings = "*"
-flake8-import-order = "*"
-pep8-naming = "*"
-pylint = "*"
+flake8 = ">=3.9.2"
+flake8-docstrings = ">=1.6.0"
+flake8-import-order = ">=0.18.1"
+pep8-naming = ">=0.11.1"
+pylint = ">=2.8.3"
 # Tests.
-coverage = {version = "*", extras = ["toml"]}
-pytest = "*"
-pytest-cov = "*"
-pytest-icdiff = "*"
+coverage = {version = ">=5.5", extras = ["toml"]}
+pytest = ">=6.2.4"
+pytest-cov = ">=2.12.1"
+pytest-icdiff = ">=0.5"
+# Project.
+sphinx = ">=3.0"
 
 [tool.black]
 line-length = 125
