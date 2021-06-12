@@ -13,7 +13,7 @@ IMPORT = 'sphinxcontrib.disqus'
 INSTALL_REQUIRES = ['sphinx']
 LICENSE = 'MIT'
 NAME = 'sphinxcontrib-disqus'
-VERSION = '1.1.0'
+VERSION = '1.1.1'
 
 
 def readme(path='README.rst'):
@@ -76,23 +76,7 @@ setup(
     author='@Robpol86',
     author_email='robpol86@gmail.com',
     classifiers=[
-        'Development Status :: 5 - Production/Stable',
-        'Environment :: MacOS X',
-        'Environment :: Plugins',
-        'Environment :: Win32 (MS Windows)',
-        'Framework :: Sphinx :: Extension',
-        'Intended Audience :: Developers',
-        'License :: OSI Approved :: MIT License',
-        'Operating System :: MacOS :: MacOS X',
-        'Operating System :: Microsoft :: Windows',
-        'Operating System :: POSIX :: Linux',
-        'Operating System :: POSIX',
-        'Programming Language :: Python :: 2.7',
-        'Programming Language :: Python :: 3.3',
-        'Programming Language :: Python :: 3.4',
-        'Programming Language :: Python :: Implementation :: PyPy',
-        'Topic :: Documentation :: Sphinx',
-        'Topic :: Software Development :: Documentation',
+        'Development Status :: 7 - Inactive',
     ],
     cmdclass=dict(check_version=CheckVersion),
     description='Sphinx extension that embeds Disqus comments in documents.',
