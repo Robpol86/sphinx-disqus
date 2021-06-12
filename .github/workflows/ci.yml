@@ -1,0 +1,21 @@
+name: Continuous Integration
+
+on:
+  push:
+
+jobs:
+
+  test:
+    name: Test
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        python: [3.6]
+    runs-on: "${{matrix.os}}"
+    env:
+      PY_COLORS: 1
+    steps:
+      - {name: Check out repository code, uses: actions/checkout@v2}
+      - {name: Install Python, uses: actions/setup-python@v2, with: {python-version: "${{matrix.python}}"}, id: py}
+      - run: python3 setup.py sdist
+      - run: ls -lah && ls -lah dist/
