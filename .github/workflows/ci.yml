@@ -19,9 +19,8 @@ jobs:
       - {name: Install Python, uses: actions/setup-python@v2, with: {python-version: "${{matrix.python}}"}, id: py}
       - run: python3 setup.py sdist
       - run: set -x && ls -lah && ls -lah dist/ && tar -tzf dist/*.tar.gz
-      - name: Publish package to TestPyPI
+      - name: Publish Python distribution to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
           user: __token__
-          password: ${{ secrets.TEST_PYPI_API_TOKEN }}
-          repository_url: https://test.pypi.org/legacy/
+          password: ${{ secrets.PYPI_API_TOKEN }}
