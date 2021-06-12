@@ -39,14 +39,14 @@ python = "^3.6.2"
 # Project dependencies.
 sphinx = "*"
 # Docs.
+sphinx-copybutton = {version = "*", optional = true}
 sphinx-notfound-page = {version = "*", optional = true}
 sphinx-panels = {version = "*", optional = true}
 sphinx-rtd-theme = {version = "*", optional = true}
-sphinx_copybutton = {version = "*", optional = true}
 toml = {version = "*", optional = true}
 
 [tool.poetry.extras]
-docs = ["sphinx-notfound-page", "sphinx-panels", "sphinx-rtd-theme", "sphinx_copybutton", "toml"]
+docs = ["sphinx-notfound-page", "sphinx-panels", "sphinx-rtd-theme", "sphinx-copybutton", "toml"]
 
 [tool.poetry.dev-dependencies]
 # Linters.

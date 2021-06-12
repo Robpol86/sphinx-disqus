@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - {name: Check out repository code, uses: actions/checkout@v2}
-      - {name: Install Python, uses: actions/setup-python@v2, with: {python-version: 3.9}, id: py}
+      - {name: Install Python, uses: actions/setup-python@v2, with: {python-version: 3.9}}
       - {name: Install Poetry, uses: abatilo/actions-poetry@v2.1.2}
       - {name: Copy LICENSE to COPYING, run: cp --no-clobber --verbose LICENSE COPYING}  # For Python wheel.
       - {name: Build package, run: make build}

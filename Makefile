@@ -26,7 +26,7 @@ lint: deps
 	poetry check
 	poetry run black --check --color --diff .
 	poetry run flake8 --application-import-names $(PROJECT_NAME),tests
-	poetry run pylint $(PROJECT_NAME) tests
+	poetry run pylint $(PROJECT_NAME) tests docs/conf.py
 
 .PHONY: test
 test: _HELP = Run unit tests
