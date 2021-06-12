@@ -1,4 +1,7 @@
 """Sphinx configuration file."""
+
+# pylint: disable=invalid-name
+
 import time
 from pathlib import Path
 
@@ -9,7 +12,7 @@ PYPROJECT = toml.loads(Path(__file__).parent.parent.joinpath("pyproject.toml").r
 
 # General configuration.
 author = PYPROJECT["tool"]["poetry"]["authors"][0].split()[0]
-copyright = f'{time.strftime("%Y")}, {author}'  # noqa
+copyright = f'{time.strftime("%Y")}, {author}'  # pylint: disable=redefined-builtin  # noqa
 html_last_updated_fmt = f"%c {time.tzname[time.localtime().tm_isdst]}"
 exclude_patterns = []
 extensions = [
