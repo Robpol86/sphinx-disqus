@@ -13,8 +13,8 @@ Embed [Disqus](https://disqus.com) comments in Sphinx documents/pages.
 [![PyPI][pypi-badge]][pypi-link]
 [![PyPI Downloads][pypi-dl-badge]][pypi-dl-link]
 
-[github-ci]: https://github.com/Robpol86/sphinx-disqus/workflows/ci/badge.svg?branch=main
-[github-link]: https://github.com/Robpol86/sphinx-disqus
+[github-ci]: https://github.com/Robpol86/sphinx-disqus/actions/workflows/ci.yml/badge.svg?branch=main
+[github-link]: https://github.com/Robpol86/sphinx-disqus/actions/workflows/ci.yml
 [codecov-badge]: https://codecov.io/gh/Robpol86/sphinx-disqus/branch/main/graph/badge.svg
 [codecov-link]: https://codecov.io/gh/Robpol86/sphinx-disqus
 [rtd-badge]: https://readthedocs.org/projects/sphinx-disqus/badge/?version=latest
