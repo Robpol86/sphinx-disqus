@@ -16,7 +16,7 @@ Getting started is pretty simple. The first step is to install the library.
 
     .. code-block:: bash
 
-        pip install git+https://github.com/Robpol86/sphinx-disqus@master
+        pip install git+https://github.com/Robpol86/sphinx-disqus@main
 
 Once the package is installed add this extension to your Sphinx’s extensions list in the ``conf.py`` file. You'll also need to
 define your `Disqus shortname <https://help.disqus.com/en/articles/1717111-what-s-a-shortname>`_ in the same file.
