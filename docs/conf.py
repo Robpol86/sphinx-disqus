@@ -7,7 +7,7 @@ from pathlib import Path
 
 import toml
 
-PYPROJECT = toml.loads(Path(__file__).parent.parent.joinpath("pyproject.toml").read_text())
+PYPROJECT = toml.loads(Path(__file__).parent.parent.joinpath("pyproject.toml").read_text(encoding="utf8"))
 
 
 # General configuration.
