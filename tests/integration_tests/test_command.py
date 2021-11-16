@@ -7,9 +7,9 @@ import pytest
 BASE_CONFIG = """\
 import sys
 sys.path.append('{}')
-extensions = ['sphinx_disqus.disqus']
-master_doc = 'index'
 nitpicky = True
+master_doc = 'index'
+extensions = ['sphinx_disqus.disqus']
 """
 
 SHORTNAME_PARAMS = [

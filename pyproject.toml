@@ -50,19 +50,19 @@ docs = ["sphinx-notfound-page", "sphinx-panels", "sphinx-rtd-theme", "sphinx-cop
 
 [tool.poetry.dev-dependencies]
 # Linters.
-black = "*"
-flake8 = ">=3.9.2"
+black = "*"  # not semver
+flake8 = ">=4.0.1"
 flake8-docstrings = ">=1.6.0"
 flake8-import-order = ">=0.18.1"
-pep8-naming = ">=0.11.1"
-pylint = ">=2.8.3"
+pep8-naming = ">=0.12.1"
+pylint = ">=2.11.1"
 # Tests.
-coverage = {version = ">=5.5", extras = ["toml"]}
-pytest = ">=6.2.4"
-pytest-cov = ">=2.12.1"
+coverage = {version = ">=6.1.2", extras = ["toml"]}
+pytest = ">=6.2.5"
+pytest-cov = ">=3.0.0"
 pytest-icdiff = ">=0.5"
 # Project.
-sphinx = ">=3.0"
+sphinx = ">=4.3.0"
 
 [tool.black]
 line-length = 125
@@ -86,6 +86,11 @@ ignore = [".venv/*", "build/*", "dist/*"]
 max-args = 6
 max-line-length = 125
 reports = false
+
+[tool.pylint."MESSAGES CONTROL"]
+disable = [
+    "consider-using-f-string",
+]
 
 [tool.pylint.SIMILARITIES]
 ignore-imports = true

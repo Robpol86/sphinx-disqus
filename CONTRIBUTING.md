@@ -14,17 +14,14 @@ make clean
 POETRY_VIRTUALENVS_IN_PROJECT=true poetry env use "$(brew --prefix)/opt/python@3.7/bin/python3"
 ```
 
-On Windows:
+On Ubuntu (including Windows WSL2):
 
-> TODO
-
-On Ubuntu:
-
-> TODO
-
-On Fedora:
-
-> TODO
+```bash
+sudo apt-get update && sudo apt-get install make python3-virtualenv python3.9
+curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/install-poetry.py | python3 -
+make clean
+POETRY_VIRTUALENVS_IN_PROJECT=true poetry env use "$(which python3.9)"
+```
 
 Then see if you can run lints and tests:
 
