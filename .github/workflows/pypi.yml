@@ -23,12 +23,12 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
-      - {name: Fetch artifacts, uses: actions/download-artifact@v2, with: {name: dist, path: dist}}
-      - name: Publish Python distribution to PyPI
+      - {name: Fetch packages, uses: actions/download-artifact@v2, with: {name: dist, path: dist}}
+      - name: Publish packages to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
           user: __token__
           password: ${{ secrets.PYPI_API_TOKEN }}
-      - name: Upload HTML Archive to Release
+      - name: Upload packages to Release
         uses: svenstaro/upload-release-action@v2
         with: {file: dist/*, file_glob: true, repo_token: "${{ secrets.GITHUB_TOKEN }}", tag: "${{ github.ref }}"}
