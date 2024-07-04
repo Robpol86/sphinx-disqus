@@ -9,13 +9,13 @@ jobs:
     name: Build
     runs-on: ubuntu-latest
     steps:
-      - {name: Check out repository code, uses: actions/checkout@v2}
-      - {name: Install Python, uses: actions/setup-python@v2, with: {python-version: "3.10"}}
-      - {name: Install Poetry, uses: abatilo/actions-poetry@v2.1.4}
+      - {name: Check out repository code, uses: actions/checkout@v4}
+      - {name: Install Python, uses: actions/setup-python@v5, with: {python-version: "3.10"}}
+      - {name: Install Poetry, uses: abatilo/actions-poetry@v3}
       - {name: Copy LICENSE to COPYING, run: cp --no-clobber --verbose LICENSE COPYING}  # For Python wheel.
       - {name: Build package, run: make build}
       - name: Store artifacts
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with: {name: dist, path: dist/, if-no-files-found: error}
 
   publish:
@@ -23,7 +23,7 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
-      - {name: Fetch packages, uses: actions/download-artifact@v2, with: {name: dist, path: dist}}
+      - {name: Fetch packages, uses: actions/download-artifact@v4, with: {name: dist, path: dist}}
       - name: Publish packages to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
         with:

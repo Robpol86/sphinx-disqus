@@ -4,6 +4,7 @@ https://sphinx-disqus.readthedocs.io
 https://github.com/Robpol86/sphinx-disqus
 https://pypi.org/project/sphinx-disqus
 """
+
 import os
 import re
 from typing import Dict, List
@@ -58,7 +59,7 @@ class DisqusNode(nodes.General, nodes.Element):
 class DisqusDirective(Directive):
     """Disqus ".. disqus::" rst directive."""
 
-    option_spec = dict(disqus_identifier=str)
+    option_spec = {"disqus_identifier": str}
 
     def get_shortname(self) -> str:
         """Validate and returns disqus_shortname config value.
@@ -124,4 +125,4 @@ def setup(app: Sphinx) -> Dict[str, str]:
     app.add_node(DisqusNode, html=(DisqusNode.visit, DisqusNode.depart))
     app.connect("builder-inited", lambda app_: app_.config.html_static_path.append(STATIC_DIR))
     app.connect("html-page-context", event_html_page_context)
-    return dict(version=__version__)
+    return {"version": __version__}

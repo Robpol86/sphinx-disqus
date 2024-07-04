@@ -1,4 +1,5 @@
 """Test extension with regular sphinx-build command."""
+
 from subprocess import CalledProcessError, check_output, STDOUT
 
 import py
