@@ -13,7 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed
 
-- Dropped Python 3.6 support due to EOL
+- Dropped Python 3.6 and 3.7 support due to EOL
 
 ## [1.2.0] - 2021-06-10
 
