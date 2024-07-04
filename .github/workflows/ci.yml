@@ -27,4 +27,6 @@ jobs:
       - {name: Build package, run: make build}
       - name: Upload coverage
         uses: codecov/codecov-action@v4
-        with: {name: "coverage-${{runner.os}}-py${{steps.py.outputs.python-version}}"}
+        with:
+          name: "coverage-${{runner.os}}-py${{steps.py.outputs.python-version}}"
+          token: ${{ secrets.CODECOV_TOKEN }}
