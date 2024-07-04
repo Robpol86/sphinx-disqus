@@ -1,6 +1,5 @@
 .DEFAULT_GOAL = help
 PROJECT_NAME = sphinx_disqus
-export POETRY_VIRTUALENVS_IN_PROJECT = true
 
 ## Dependencies
 
