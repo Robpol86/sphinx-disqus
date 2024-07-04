@@ -4,6 +4,7 @@ https://sphinx-disqus.readthedocs.io
 https://github.com/Robpol86/sphinx-disqus
 https://pypi.org/project/sphinx-disqus
 """
+
 import os
 import re
 from typing import Dict, List
