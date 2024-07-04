@@ -19,14 +19,14 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v4
 
-      - name: Install Python
-        id: py
-        uses: actions/setup-python@v5
-        with:
-          python-version: "${{matrix.python}}"
-
       - name: Install Poetry
         uses: abatilo/actions-poetry@v3
+
+      - name: Install Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "${{ matrix.python }}"
+          cache: poetry
 
       - name: Install dependencies
         run: make deps
@@ -51,5 +51,5 @@ jobs:
       - name: Upload coverage
         uses: codecov/codecov-action@v4
         with:
-          name: "coverage-${{runner.os}}-py${{steps.py.outputs.python-version}}"
+          name: "coverage-${{ runner.os }}-py${{ matrix.python }}"
           token: ${{ secrets.CODECOV_TOKEN }}

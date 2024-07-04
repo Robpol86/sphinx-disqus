@@ -3,15 +3,6 @@ PROJECT_NAME = sphinx_disqus
 
 ## Dependencies
 
-init: _HELP = Initialize Python VirtualEnv via Poetry (optional PROJECT_PY_PATH env var)
-init:
-ifdef PROJECT_PY_PATH
-	poetry env use $(PROJECT_PY_PATH)
-else
-	command -V python3 < /dev/null
-	poetry env use $(shell command -v python3 < /dev/null)
-endif
-
 poetry.lock: _HELP = Lock dependency versions to file
 poetry.lock:
 	poetry lock
