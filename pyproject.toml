@@ -22,10 +22,12 @@ classifiers = [
     "Operating System :: POSIX :: Linux",
     "Operating System :: POSIX",
     "Programming Language :: Python :: 3 :: Only",
-    "Programming Language :: Python :: 3.6",
     "Programming Language :: Python :: 3.7",
     "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
     "Topic :: Documentation :: Sphinx",
     "Topic :: Software Development :: Documentation",
 ]
@@ -35,7 +37,7 @@ documentation = "https://sphinx-disqus.readthedocs.io"
 repository = "https://github.com/Robpol86/sphinx-disqus"
 
 [tool.poetry.dependencies]
-python = "^3.6.2"
+python = "^3.7"
 # Project dependencies.
 sphinx = "*"
 # Docs.
@@ -66,7 +68,7 @@ sphinx = ">=4.3.0"
 
 [tool.black]
 line-length = 125
-target-version = ["py36", "py37", "py38", "py39"]
+target-version = ["py37", "py312"]
 
 [tool.coverage.report]
 exclude_lines = [

@@ -9,7 +9,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Python 3.10 support
+- Python 3.12 support
+
+### Removed
+
+- Dropped Python 3.6 support due to EOL
 
 ## [1.2.0] - 2021-06-10
 
