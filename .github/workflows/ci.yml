@@ -61,3 +61,27 @@ jobs:
           name: dist
           path: dist
           if-no-files-found: error
+
+  Validate:
+    needs: Test
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Download Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: dist
+
+      - name: Extract
+        working-directory: dist
+        run: |
+          unzip -t *.whl
+          unzip -p *.whl '*/METADATA'
+
+      - name: Install Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+
+      - name: Pip Install
+        run: pip install dist/*.whl
