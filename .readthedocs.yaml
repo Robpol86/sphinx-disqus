@@ -11,7 +11,13 @@ build:
       - asdf global poetry latest
       - poetry config --local virtualenvs.create false
     post_install:
+      - which sphinx-build
+      - sphinx-build --version
       - poetry install --with dev
+      - ls -lah
+      - pwd
+      - which sphinx-build
+      - sphinx-build --version
 
 sphinx:
   configuration: docs/conf.py
