@@ -1,30 +1,53 @@
 name: Continuous Integration
 
+
 on:
   pull_request:
   push:
 
+
 jobs:
 
-  test:
-    name: Test
+  Test:
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest]
         python: ["3.8", "3.9", "3.10"]
-    runs-on: "${{matrix.os}}"
-    env:
-      PY_COLORS: 1
+    runs-on: "${{ matrix.os }}"
     steps:
-      - {name: Check out repository code, uses: actions/checkout@v4}
-      - {name: Install Python, uses: actions/setup-python@v5, with: {python-version: "${{matrix.python}}"}, id: py}
-      - {name: Install Poetry, uses: abatilo/actions-poetry@v3}
-      - {name: Install dependencies, run: make deps}
-      - {name: Run lints, run: make lint}
-      - {name: Run tests, run: make test}
-      - {name: Run integration tests, run: make it}
-      - {name: Build docs, run: make docs}
-      - {name: Build package, run: make build}
+
+      - name: Check out repository code
+        uses: actions/checkout@v4
+
+      - name: Install Python
+        id: py
+        uses: actions/setup-python@v5
+        with:
+          python-version: "${{matrix.python}}"
+
+      - name: Install Poetry
+        uses: abatilo/actions-poetry@v3
+
+      - name: Install dependencies
+        run: make deps
+
+      - name: Run lints
+        run: make lint
+
+      - name: Run tests
+        env:
+          PY_COLORS: 1
+        run: make test
+
+      - name: Run integration tests
+        run: make it
+
+      - name: Build docs
+        run: make docs
+
+      - name: Build package
+        run: make build
+
       - name: Upload coverage
         uses: codecov/codecov-action@v4
         with:
