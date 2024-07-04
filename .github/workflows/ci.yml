@@ -6,6 +6,10 @@ on:
   push:
 
 
+env:
+  VALIDATE_PY_VERSION: "3.10"
+
+
 jobs:
 
   Test:
@@ -55,7 +59,7 @@ jobs:
           token: ${{ secrets.CODECOV_TOKEN }}
 
       - name: Upload Artifact
-        if: runner.os == 'Linux' && matrix.python == '3.10'
+        if: runner.os == 'Linux' && matrix.python == env.VALIDATE_PY_VERSION
         uses: actions/upload-artifact@v4
         with:
           name: dist
@@ -73,15 +77,15 @@ jobs:
           name: dist
 
       - name: Extract
-        working-directory: dist
         run: |
+          ls -lah
           unzip -t *.whl
           unzip -p *.whl '*/METADATA'
 
       - name: Install Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.10"
+          python-version: "${{ env.VALIDATE_PY_VERSION }}"
 
       - name: Pip Install
         run: pip install dist/*.whl
