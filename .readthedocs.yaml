@@ -9,6 +9,7 @@ build:
       - asdf plugin add poetry
       - asdf install poetry latest
       - asdf global poetry latest
+      - poetry config virtualenvs.create false
     post_install:
       - poetry install --with dev
 
