@@ -16,7 +16,7 @@ jobs:
     runs-on: "${{ matrix.os }}"
     steps:
 
-      - name: Check out repository code
+      - name: Checkout
         uses: actions/checkout@v4
 
       - name: Install Poetry
@@ -28,33 +28,33 @@ jobs:
           python-version: "${{ matrix.python }}"
           cache: poetry
 
-      - name: Install dependencies
+      - name: Install Dependencies
         run: make deps
 
-      - name: Run lints
+      - name: Run Lints
         run: make lint
 
-      - name: Run tests
+      - name: Run Tests
         env:
           PY_COLORS: 1
         run: make test
 
-      - name: Run integration tests
+      - name: Run Integration Tests
         run: make it
 
-      - name: Build docs
+      - name: Build Docs
         run: make docs
 
-      - name: Build package
+      - name: Build Package
         run: make build
 
-      - name: Upload coverage
+      - name: Upload Coverage
         uses: codecov/codecov-action@v4
         with:
           name: "coverage-${{ runner.os }}-py${{ matrix.python }}"
           token: ${{ secrets.CODECOV_TOKEN }}
 
-      - name: Upload artifact
+      - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
           name: dist
