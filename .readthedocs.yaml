@@ -15,6 +15,7 @@ build:
       - which sphinx-build
       - sphinx-build --version
       - poetry install --with dev
+      - poetry run which python
       - ls -lah
       - pwd
       - which sphinx-build
