@@ -34,7 +34,7 @@ documentation = "https://sphinx-disqus.readthedocs.io"
 repository = "https://github.com/Robpol86/sphinx-disqus"
 
 [tool.poetry.dependencies]
-python = "^3.6.2"
+python = "^3.8"
 # Project dependencies.
 sphinx = "*"
 # Docs.
