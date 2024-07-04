@@ -88,4 +88,4 @@ jobs:
           python-version: "${{ env.VALIDATE_PY_VERSION }}"
 
       - name: Pip Install
-        run: pip install dist/*.whl
+        run: pip install *.whl
