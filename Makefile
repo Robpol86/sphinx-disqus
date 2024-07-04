@@ -4,53 +4,62 @@ export POETRY_VIRTUALENVS_IN_PROJECT = true
 
 ## Dependencies
 
+init: _HELP = Initialize Python VirtualEnv via Poetry (optional PROJECT_PY_PATH env var)
+init:
+ifdef PROJECT_PY_PATH
+	poetry env use $(PROJECT_PY_PATH)
+else
+	command -V python3 < /dev/null
+	poetry env use $(shell command -v python3 < /dev/null)
+endif
+
 poetry.lock: _HELP = Lock dependency versions to file
 poetry.lock:
 	poetry lock
 
+.PHONY: relock
+relock: _HELP = Delete and recreate poetry lock file
+relock:
+	rm -f poetry.lock && $(MAKE) poetry.lock
+
 .PHONY: deps
 deps: _HELP = Install project dependencies
 deps:
-	poetry install -E docs
-	poetry run python -V
-
-requirements.txt: _HELP = Generate development requirements.txt
-requirements.txt: poetry.lock
-	poetry export --dev --without-hashes -o $@
+	poetry install --with dev
 
 ## Testing
 
 .PHONY: lint
 lint: _HELP = Run linters
-lint: deps
+lint:
 	poetry check
 	poetry run black --check --color --diff .
-	poetry run flake8 --application-import-names $(PROJECT_NAME),tests
-	poetry run pylint $(PROJECT_NAME) tests docs/conf.py
+	poetry run flake8 --application-import-names $(PROJECT_NAME),docs,tests
+	poetry run pylint $(PROJECT_NAME) docs tests
 
 .PHONY: test
 test: _HELP = Run unit tests
-test: deps
+test:
 	poetry run pytest --cov=$(PROJECT_NAME) --cov-report=html --cov-report=xml tests/unit_tests
 
 .PHONY: testpdb
 testpdb: _HELP = Run unit tests and drop into the debugger on failure
-testpdb: deps
+testpdb:
 	poetry run pytest --pdb tests/unit_tests
 
 .PHONY: it
 it: _HELP = Run integration tests
-it: deps
+it:
 	poetry run pytest tests/integration_tests
 
 .PHONY: itpdb
 itpdb: _HELP = Run integration tests and drop into the debugger on failure
-itpdb: deps
+itpdb:
 	poetry run pytest --pdb tests/integration_tests
 
 .PHONY: all
 all: _HELP = Run linters, unit tests, integration tests, and builds
-all: lint test it docs build
+all: test it lint docs build
 
 ## Build
 
@@ -59,7 +68,7 @@ build: _HELP = Build Python package (sdist and wheel)
 build:
 	poetry build -n -vvv
 
-docs/_build/html/index.html: deps
+docs/_build/html/index.html::
 	poetry run sphinx-build -a -E -n -W docs $(@D)
 	@echo Documentation available here: $@
 
@@ -71,8 +80,8 @@ docs: docs/_build/html/index.html
 
 clean: _HELP = Remove temporary files
 clean:
-	rm -rfv *.egg-info/ *cache*/ .*cache*/ .coverage coverage.xml htmlcov/ dist/ docs/_build requirements.txt
-	find . -name __pycache__ -type d -exec rm -r {} +
+	rm -rfv *.egg-info/ *cache*/ .*cache*/ .coverage* coverage.xml htmlcov/ dist/ docs/_build/ requirements.txt
+	find . -path '*/.*' -prune -o -name __pycache__ -type d -exec rm -r {} +
 
 distclean: _HELP = Remove temporary files including virtualenv
 distclean: clean
