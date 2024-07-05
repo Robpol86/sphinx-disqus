@@ -48,18 +48,18 @@ sphinx-rtd-theme = "*"
 toml = "*"
 # Linters.
 black = "*"  # not semver
-flake8 = ">=4.0.1"
-flake8-docstrings = ">=1.6.0"
-flake8-import-order = ">=0.18.1"
-pep8-naming = ">=0.12.1"
-pylint = ">=2.11.1"
+flake8 = "*"
+flake8-docstrings = "*"
+flake8-import-order = "*"
+pep8-naming = "*"
+pylint = "*"
 # Tests.
-coverage = {version = ">=6.1.2", extras = ["toml"]}
-pytest = ">=6.2.5"
-pytest-cov = ">=3.0.0"
-pytest-icdiff = ">=0.5"
+coverage = {version = "*", extras = ["toml"]}
+pytest = "*"
+pytest-cov = "*"
+pytest-icdiff = "*"
 # Project.
-sphinx = "4.3.0"
+sphinx = "7.1.2"
 
 [tool.black]
 line-length = 125
