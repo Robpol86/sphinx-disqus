@@ -22,7 +22,6 @@ classifiers = [
     "Operating System :: POSIX :: Linux",
     "Operating System :: POSIX",
     "Programming Language :: Python :: 3 :: Only",
-    "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
@@ -36,34 +35,34 @@ documentation = "https://sphinx-disqus.readthedocs.io"
 repository = "https://github.com/Robpol86/sphinx-disqus"
 
 [tool.poetry.dependencies]
-python = "^3.8"
+python = "^3.9"
 sphinx = "*"
 
 [tool.poetry.group.dev.dependencies]
 # Docs.
 sphinx-copybutton = "*"
+sphinx-design = "*"
 sphinx-notfound-page = "*"
-sphinx-panels = "*"
 sphinx-rtd-theme = "*"
 toml = "*"
 # Linters.
 black = "*"  # not semver
-flake8 = ">=4.0.1"
-flake8-docstrings = ">=1.6.0"
-flake8-import-order = ">=0.18.1"
-pep8-naming = ">=0.12.1"
-pylint = ">=2.11.1"
+flake8 = "*"
+flake8-docstrings = "*"
+flake8-import-order = "*"
+pep8-naming = "*"
+pylint = "*"
 # Tests.
-coverage = {version = ">=6.1.2", extras = ["toml"]}
-pytest = ">=6.2.5"
-pytest-cov = ">=3.0.0"
-pytest-icdiff = ">=0.5"
+coverage = {version = "*", extras = ["toml"]}
+pytest = "*"
+pytest-cov = "*"
+pytest-icdiff = "*"
 # Project.
-sphinx = "4.3.0"
+sphinx = "7.3.7"
 
 [tool.black]
 line-length = 125
-target-version = ["py38", "py39", "py310", "py311", "py312"]
+target-version = ["py39", "py310", "py311", "py312"]
 
 [tool.coverage.report]
 exclude_lines = [

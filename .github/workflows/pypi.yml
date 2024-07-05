@@ -1,7 +1,13 @@
 name: PyPI
 
+
 on:
   release: {types: [published]}
+
+
+env:
+  PY_VERSION: "3.12"
+
 
 jobs:
 
@@ -15,7 +21,7 @@ jobs:
       - name: Install Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.12"
+          python-version: ${{ env.PY_VERSION }}
           cache: poetry
       - name: Build Docs
         run: make docs
@@ -38,7 +44,7 @@ jobs:
       - name: Install Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.12"
+          python-version: ${{ env.PY_VERSION }}
           cache: poetry
       - name: Copy LICENSE to COPYING  # For Python wheel
         run: cp --no-clobber --verbose LICENSE COPYING

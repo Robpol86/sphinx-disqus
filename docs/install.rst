@@ -6,17 +6,19 @@ Installation
 
 Getting started is pretty simple. The first step is to install the library.
 
-.. tabbed:: Install from PyPI
+.. tab-set::
 
-    .. code-block:: bash
+    .. tab-item:: Install from PyPI
 
-        pip install sphinx-disqus
+        .. code-block:: bash
 
-.. tabbed:: Install from GitHub
+            pip install sphinx-disqus
 
-    .. code-block:: bash
+    .. tab-item:: Install from GitHub
 
-        pip install git+https://github.com/Robpol86/sphinx-disqus@main
+        .. code-block:: bash
+
+            pip install git+https://github.com/Robpol86/sphinx-disqus@main
 
 Once the package is installed add this extension to your Sphinx’s extensions list in the ``conf.py`` file. You'll also need to
 define your `Disqus shortname <https://help.disqus.com/en/articles/1717111-what-s-a-shortname>`_ in the same file.
@@ -32,15 +34,13 @@ define your `Disqus shortname <https://help.disqus.com/en/articles/1717111-what-
 
 The last step is to enable comments on each document.
 
-.. tabbed:: reStructuredText
+.. tab-set-code::
 
-    .. code-block:: rst
+    .. code-block:: reStructuredText
 
         .. disqus::
 
-.. tabbed:: MyST Markdown
-
-    .. code-block:: md
+    .. code-block:: Markdown
 
         ```{disqus}
         ```
@@ -53,16 +53,14 @@ By default the extension will define the
 document title. To override this behavior you can define your own identifier for a particular document using the
 ``disqus_identifier`` option.
 
-.. tabbed:: reStructuredText
+.. tab-set-code::
 
-    .. code-block:: rst
+    .. code-block:: reStructuredText
 
         .. disqus::
             :disqus_identifier: name_of_this_page
 
-.. tabbed:: MyST Markdown
-
-    .. code-block:: md
+    .. code-block:: Markdown
 
         ```{disqus}
         :disqus_identifier: name_of_this_page
