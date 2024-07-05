@@ -53,6 +53,19 @@ By default the extension will define the
 document title. To override this behavior you can define your own identifier for a particular document using the
 ``disqus_identifier`` option.
 
+.. tab-set-code::
+
+    .. code-block:: reStructuredText
+
+        .. disqus::
+            :disqus_identifier: name_of_this_page
+
+    .. code-block:: Markdown
+
+        ```{disqus}
+        :disqus_identifier: name_of_this_page
+        ```
+
 Comments
 ========
 
