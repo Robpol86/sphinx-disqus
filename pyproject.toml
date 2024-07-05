@@ -25,6 +25,8 @@ classifiers = [
     "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
     "Topic :: Documentation :: Sphinx",
     "Topic :: Software Development :: Documentation",
 ]
@@ -61,7 +63,7 @@ sphinx = "4.3.0"
 
 [tool.black]
 line-length = 125
-target-version = ["py38", "py39", "py310"]
+target-version = ["py38", "py39", "py310", "py311", "py312"]
 
 [tool.coverage.report]
 exclude_lines = [
