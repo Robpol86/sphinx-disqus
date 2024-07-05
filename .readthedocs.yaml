@@ -9,7 +9,6 @@ build:
       - asdf plugin add poetry
       - asdf install poetry latest
       - asdf global poetry latest
-      - poetry config --local virtualenvs.create false
     post_install:
       - VIRTUAL_ENV="$READTHEDOCS_VIRTUALENV_PATH" poetry install --with dev
 
