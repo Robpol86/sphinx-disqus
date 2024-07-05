@@ -11,15 +11,7 @@ build:
       - asdf global poetry latest
       - poetry config --local virtualenvs.create false
     post_install:
-      - which python
-      - which sphinx-build
-      - sphinx-build --version
-      - poetry install -vvv --with dev
-      - poetry run which python
-      - ls -lah
-      - pwd
-      - which sphinx-build
-      - sphinx-build --version
+      - VIRTUAL_ENV="$READTHEDOCS_VIRTUALENV_PATH" poetry install --with dev
 
 sphinx:
   configuration: docs/conf.py
