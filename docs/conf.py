@@ -27,7 +27,7 @@ pygments_style = "sphinx"
 
 # Options for HTML output.
 html_copy_source = False
-html_theme = "sphinx_rtd_theme"
+html_theme = "sphinx_book_theme"
 
 
 # https://sphinx-disqus.readthedocs.io

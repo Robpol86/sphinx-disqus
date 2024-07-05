@@ -40,6 +40,7 @@ sphinx = "*"
 
 [tool.poetry.group.dev.dependencies]
 # Docs.
+sphinx-book-theme = "*"
 sphinx-copybutton = "*"
 sphinx-design = "*"
 sphinx-notfound-page = "*"
