@@ -34,6 +34,17 @@ define your `Disqus shortname <https://help.disqus.com/en/articles/1717111-what-
 
 The last step is to enable comments on each document.
 
+.. tab-set-code::
+
+    .. code-block:: reStructuredText
+
+        .. disqus::
+
+    .. code-block:: Markdown
+
+        ```{disqus}
+        ```
+
 Specifying an Identifier
 ========================
 
