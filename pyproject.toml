@@ -62,7 +62,7 @@ sphinx = "7.3.7"
 
 [tool.black]
 line-length = 125
-target-version = ["py38", "py39", "py310", "py311", "py312"]
+target-version = ["py39", "py310", "py311", "py312"]
 
 [tool.coverage.report]
 exclude_lines = [
