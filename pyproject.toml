@@ -22,7 +22,6 @@ classifiers = [
     "Operating System :: POSIX :: Linux",
     "Operating System :: POSIX",
     "Programming Language :: Python :: 3 :: Only",
-    "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
@@ -36,7 +35,7 @@ documentation = "https://sphinx-disqus.readthedocs.io"
 repository = "https://github.com/Robpol86/sphinx-disqus"
 
 [tool.poetry.dependencies]
-python = "^3.8"
+python = "^3.9"
 sphinx = "*"
 
 [tool.poetry.group.dev.dependencies]
@@ -59,7 +58,7 @@ pytest = "*"
 pytest-cov = "*"
 pytest-icdiff = "*"
 # Project.
-sphinx = "7.1.2"
+sphinx = "7.3.7"
 
 [tool.black]
 line-length = 125
