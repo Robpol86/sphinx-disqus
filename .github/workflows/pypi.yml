@@ -5,6 +5,29 @@ on:
 
 jobs:
 
+  Docs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Install Poetry
+        uses: abatilo/actions-poetry@v3
+      - name: Install Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+          cache: poetry
+      - name: Build Docs
+        run: make docs
+      - name: Compress
+        run: tar -C docs/_build -czvf docs.tar.gz --transform s/^html/docs/ html/
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: docs
+          path: docs.tar.gz
+          if-no-files-found: error
+
   Build:
     runs-on: ubuntu-latest
     steps:
@@ -29,10 +52,10 @@ jobs:
           if-no-files-found: error
 
   Publish:
-    needs: Build
+    needs: [Build, Docs]
     runs-on: ubuntu-latest
     steps:
-      - name: Download Artifact
+      - name: Download Build Artifact
         uses: actions/download-artifact@v4
         with:
           name: dist
@@ -42,6 +65,11 @@ jobs:
         with:
           user: __token__
           password: ${{ secrets.PYPI_API_TOKEN }}
+      - name: Download Documentation Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: docs
+          path: dist
       - name: Upload to Release
         uses: svenstaro/upload-release-action@v2
         with:
