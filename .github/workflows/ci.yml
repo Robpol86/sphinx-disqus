@@ -8,6 +8,7 @@ on:
 
 env:
   VALIDATE_PY_VERSION: "3.12"
+  VALIDATE_PY_VERSION: "3.12"
 
 
 jobs:
