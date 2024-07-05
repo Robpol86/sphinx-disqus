@@ -1,32 +1,91 @@
 name: Continuous Integration
 
+
 on:
   pull_request:
   push:
 
+
+env:
+  VALIDATE_PY_VERSION: "3.10"
+
+
 jobs:
 
-  test:
-    name: Test
+  Test:
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest]
         python: ["3.8", "3.9", "3.10"]
-    runs-on: "${{matrix.os}}"
-    env:
-      PY_COLORS: 1
+    runs-on: "${{ matrix.os }}"
     steps:
-      - {name: Check out repository code, uses: actions/checkout@v4}
-      - {name: Install Python, uses: actions/setup-python@v5, with: {python-version: "${{matrix.python}}"}, id: py}
-      - {name: Install Poetry, uses: abatilo/actions-poetry@v3}
-      - {name: Install dependencies, run: make deps}
-      - {name: Run lints, run: make lint}
-      - {name: Run tests, run: make test}
-      - {name: Run integration tests, run: make it}
-      - {name: Build docs, run: make docs}
-      - {name: Build package, run: make build}
-      - name: Upload coverage
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Poetry
+        uses: abatilo/actions-poetry@v3
+
+      - name: Install Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "${{ matrix.python }}"
+          cache: poetry
+
+      - name: Install Dependencies
+        run: make deps
+
+      - name: Run Lints
+        run: make lint
+
+      - name: Run Tests
+        env:
+          PY_COLORS: 1
+        run: make test
+
+      - name: Run Integration Tests
+        run: make it
+
+      - name: Build Docs
+        run: make docs
+
+      - name: Build Package
+        run: make build
+
+      - name: Upload Coverage
         uses: codecov/codecov-action@v4
         with:
-          name: "coverage-${{runner.os}}-py${{steps.py.outputs.python-version}}"
+          name: "coverage-${{ runner.os }}-py${{ matrix.python }}"
           token: ${{ secrets.CODECOV_TOKEN }}
+
+      - name: Upload Artifact
+        if: runner.os == 'Linux' && matrix.python == env.VALIDATE_PY_VERSION
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist
+          if-no-files-found: error
+
+  Validate:
+    needs: Test
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Download Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: dist
+
+      - name: Extract
+        run: |
+          ls -lah
+          unzip -t *.whl
+          unzip -p *.whl '*/METADATA'
+
+      - name: Install Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "${{ env.VALIDATE_PY_VERSION }}"
+
+      - name: Pip Install
+        run: pip install *.whl

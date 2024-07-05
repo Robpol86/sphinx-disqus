@@ -5,30 +5,75 @@ on:
 
 jobs:
 
-  build:
-    name: Build
+  Docs:
     runs-on: ubuntu-latest
     steps:
-      - {name: Check out repository code, uses: actions/checkout@v4}
-      - {name: Install Python, uses: actions/setup-python@v5, with: {python-version: "3.10"}}
-      - {name: Install Poetry, uses: abatilo/actions-poetry@v3}
-      - {name: Copy LICENSE to COPYING, run: cp --no-clobber --verbose LICENSE COPYING}  # For Python wheel.
-      - {name: Build package, run: make build}
-      - name: Store artifacts
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Install Poetry
+        uses: abatilo/actions-poetry@v3
+      - name: Install Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+          cache: poetry
+      - name: Build Docs
+        run: make docs
+      - name: Compress
+        run: tar -C docs/_build -czvf docs.tar.gz --transform s/^html/docs/ html/
+      - name: Upload Artifact
         uses: actions/upload-artifact@v4
-        with: {name: dist, path: dist/, if-no-files-found: error}
+        with:
+          name: docs
+          path: docs.tar.gz
+          if-no-files-found: error
 
-  publish:
-    name: Publish to PyPI
-    needs: build
+  Build:
     runs-on: ubuntu-latest
     steps:
-      - {name: Fetch packages, uses: actions/download-artifact@v4, with: {name: dist, path: dist}}
-      - name: Publish packages to PyPI
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Install Poetry
+        uses: abatilo/actions-poetry@v3
+      - name: Install Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+          cache: poetry
+      - name: Copy LICENSE to COPYING  # For Python wheel
+        run: cp --no-clobber --verbose LICENSE COPYING
+      - name: Build Package
+        run: make build
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist
+          if-no-files-found: error
+
+  Publish:
+    needs: [Build, Docs]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download Build Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist
+      - name: Publish to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
           user: __token__
           password: ${{ secrets.PYPI_API_TOKEN }}
-      - name: Upload packages to Release
+      - name: Download Documentation Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: docs
+          path: dist
+      - name: Upload to Release
         uses: svenstaro/upload-release-action@v2
-        with: {file: dist/*, file_glob: true, repo_token: "${{ secrets.GITHUB_TOKEN }}", tag: "${{ github.ref }}"}
+        with:
+          file: dist/*
+          file_glob: true
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          tag: ${{ github.ref }}

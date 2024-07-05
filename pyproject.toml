@@ -1,6 +1,6 @@
 [build-system]
-requires = ["poetry>=0.12"]
-build-backend = "poetry.masonry.api"
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
 name = "sphinx-disqus"
@@ -35,19 +35,15 @@ repository = "https://github.com/Robpol86/sphinx-disqus"
 
 [tool.poetry.dependencies]
 python = "^3.8"
-# Project dependencies.
 sphinx = "*"
+
+[tool.poetry.group.dev.dependencies]
 # Docs.
-sphinx-copybutton = {version = "*", optional = true}
-sphinx-notfound-page = {version = "*", optional = true}
-sphinx-panels = {version = "*", optional = true}
-sphinx-rtd-theme = {version = "*", optional = true}
-toml = {version = "*", optional = true}
-
-[tool.poetry.extras]
-docs = ["sphinx-notfound-page", "sphinx-panels", "sphinx-rtd-theme", "sphinx-copybutton", "toml"]
-
-[tool.poetry.dev-dependencies]
+sphinx-copybutton = "*"
+sphinx-notfound-page = "*"
+sphinx-panels = "*"
+sphinx-rtd-theme = "*"
+toml = "*"
 # Linters.
 black = "*"  # not semver
 flake8 = ">=4.0.1"
