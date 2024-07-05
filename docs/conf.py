@@ -18,8 +18,8 @@ exclude_patterns = []
 extensions = [
     "notfound.extension",  # https://sphinx-notfound-page.readthedocs.io
     "sphinx_copybutton",  # https://sphinx-copybutton.readthedocs.io
+    "sphinx_design",  # https://sphinx-design.readthedocs.io
     "sphinx_disqus.disqus",
-    "sphinx_panels",  # https://sphinx-panels.readthedocs.io
 ]
 project = PYPROJECT["tool"]["poetry"]["name"]
 pygments_style = "sphinx"

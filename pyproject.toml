@@ -42,8 +42,8 @@ sphinx = "*"
 [tool.poetry.group.dev.dependencies]
 # Docs.
 sphinx-copybutton = "*"
+sphinx-design = "*"
 sphinx-notfound-page = "*"
-sphinx-panels = "*"
 sphinx-rtd-theme = "*"
 toml = "*"
 # Linters.
