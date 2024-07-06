@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+- N/A
+
+## [1.3.0] - 2024-07-06
+
 ### Added
 
 - Python 3.10 through 3.12 support
@@ -15,6 +19,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Dropped Python 3.6 and 3.7 support due to EOL
 - Dropped Python 3.8 support for latest Sphinx compatibility
+
+### Changed
+
+- No longer depending on jQuery for delayed loading of embed.js ([#33](https://github.com/Robpol86/sphinx-disqus/pull/33))
+- Now supporting Sphinx themes that don't use jQuery
 
 ## [1.2.0] - 2021-06-10
 
