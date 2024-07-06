@@ -60,17 +60,17 @@ jobs:
   Publish:
     needs: [Build, Docs]
     runs-on: ubuntu-latest
+    environment:
+      name: pypi
+      url: https://pypi.org/p/sphinx-disqus
+    permissions:
+      id-token: write
     steps:
       - name: Download Build Artifact
         uses: actions/download-artifact@v4
         with:
           name: dist
           path: dist
-      - name: Publish to PyPI
-        uses: pypa/gh-action-pypi-publish@release/v1
-        with:
-          user: __token__
-          password: ${{ secrets.PYPI_API_TOKEN }}
       - name: Download Documentation Artifact
         uses: actions/download-artifact@v4
         with:
@@ -83,3 +83,5 @@ jobs:
           file_glob: true
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           tag: ${{ github.ref }}
+      - name: Publish to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
