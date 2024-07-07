@@ -43,6 +43,7 @@ optional = true
 
 [tool.poetry.group.dev.dependencies]
 # Docs.
+ablog = "*"
 sphinx-copybutton = "*"
 sphinx-design = "*"
 sphinx-notfound-page = "*"

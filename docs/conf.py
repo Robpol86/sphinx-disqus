@@ -20,6 +20,8 @@ extensions = [
     "sphinx_copybutton",  # https://sphinx-copybutton.readthedocs.io
     "sphinx_design",  # https://sphinx-design.readthedocs.io
     "sphinx_disqus.disqus",
+    'ablog',
+    'sphinx.ext.intersphinx',
 ]
 project = PYPROJECT["tool"]["poetry"]["name"]
 pygments_style = "sphinx"
