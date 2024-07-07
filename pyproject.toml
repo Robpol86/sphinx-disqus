@@ -38,6 +38,9 @@ repository = "https://github.com/Robpol86/sphinx-disqus"
 python = "^3.9"
 sphinx = "*"
 
+[tool.poetry.group.dev]
+optional = true
+
 [tool.poetry.group.dev.dependencies]
 # Docs.
 sphinx-copybutton = "*"
