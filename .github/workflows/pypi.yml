@@ -76,11 +76,13 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: docs
-          path: dist
+          path: release
+      - name: Copy
+        run: cp -v dist/* release/
       - name: Upload to Release
         uses: svenstaro/upload-release-action@v2
         with:
-          file: dist/*
+          file: release/*
           file_glob: true
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           tag: ${{ github.ref }}
